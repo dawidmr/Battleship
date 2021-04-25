@@ -2,30 +2,23 @@
 
 <h3>BattleshipGame</h3>
 
-<div class="container" style="border: solid 1px black; max-width: 450px">
+<div class="container">
     <div class="row">
-        @for (int hi = 0; hi < 10; hi++)
-        {
-            <div class="col-sm">
-                @
-            </div>
-        }
-    </div>
-    @for (int i = 0; i < 10; i++)
-    {
-    <div class="row">
-        <div class="col-sm">
-            a
+        <div class="col-sm-5">
+            <Grid />
         </div>
-
-        @for (int j = 0; j < 10; j++)
-        {
-            <div class="col-sm" style="border: solid 1px black">
-                x
-            </div>
-        }
+        <div class="col-sm-5">
+            <Grid />
+        </div>
     </div>
-    }
+    <div class="row">
+        <div class="col-sm-5">
+            <Grid />
+        </div>
+        <div class="col-sm-5">
+            <Grid />
+        </div>
+    </div>
 </div>
 
 @code {
