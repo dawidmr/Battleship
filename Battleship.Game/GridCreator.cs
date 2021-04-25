@@ -14,7 +14,7 @@ namespace Battleship.Game
             Factory = ChooseFactory(gridType);
         }
 
-        public Grid Create(GridType gridType)
+        public IGrid Create(GridType gridType)
         {
             return Factory.Create();
         }

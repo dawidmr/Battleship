@@ -7,9 +7,9 @@ namespace Battleship.Game
 {
     public class MainGridFactory : GridFactory
     {
-        public override Grid Create()
+        public override IGrid Create()
         {
-            throw new NotImplementedException();
+            return new Grid();
         }
     }
 }

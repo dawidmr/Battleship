@@ -7,6 +7,6 @@ namespace Battleship.Game
 {
     public abstract class GridFactory
     {
-        public abstract Grid Create();
+        public abstract IGrid Create();
     }
 }

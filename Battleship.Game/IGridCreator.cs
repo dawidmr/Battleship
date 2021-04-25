@@ -4,6 +4,6 @@ namespace Battleship.Game
 {
     public interface IGridCreator
     {
-        Grid Create(GridType gridType);
+        IGrid Create(GridType gridType);
     }
 }

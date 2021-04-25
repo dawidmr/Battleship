@@ -7,7 +7,9 @@ namespace BattleShip.Models
     public enum SquareStates
     {
         Virgin,
-        Hit,
-        Miss
+        Ship,
+        HittedShip,
+        SunkShip,
+        MissedShot
     }
 }
