@@ -6,6 +6,6 @@ namespace Battleship.Models
     {
         void ChangeSquareState(Coordinates coordinates, SquareStates newState);
         void Fill();
-        SquareStates[,] Squares { get; }
+        SquareStates[,] GetSquares();
     }
 }

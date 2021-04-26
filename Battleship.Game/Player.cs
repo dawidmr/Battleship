@@ -17,11 +17,6 @@ namespace Battleship.Game
             OpponentGrid = gridCreator.Create(GridType.Opponent);
         }
 
-        public Player()
-        {
-
-        }
-
         public Coordinates ChooseTarget()
         {
             throw new NotImplementedException();

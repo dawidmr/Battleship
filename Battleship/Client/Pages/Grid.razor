@@ -1,10 +1,13 @@
 ﻿<h3>Grid</h3>
 
     <div class="row">
-        @for (int hi = 0; hi < 10; hi++)
+        @for (int hi = 0; hi <= 10; hi++)
         {
             <div class="col-sm">
-                @hi
+                @if (hi != 0)
+                {
+                    @hi
+                }
             </div>
         }
     </div>
@@ -18,7 +21,7 @@
             @for (int j = 0; j < 10; j++)
             {
                 <div class="col-sm" style="border: solid 1px black">
-                    @GetCharFromSquareState(squares[i, j]);
+                    @GetCharFromSquareState(squares[i, j])
                 </div>
             }
         </div>

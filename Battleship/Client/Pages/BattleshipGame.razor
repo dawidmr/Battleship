@@ -6,18 +6,18 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-5">
-            <Grid squares=player1.MainGrid.Squares/>
+            <Grid squares=player1.MainGrid.GetSquares()/>
         </div>
         <div class="col-sm-5">
-            <Grid squares=player1.OpponentGrid.Squares/>
+            <Grid squares=player2.MainGrid.GetSquares()/>
         </div>
     </div>
     <div class="row">
         <div class="col-sm-5">
-            <Grid squares=player2.MainGrid.Squares />
+            <Grid squares=player1.OpponentGrid.GetSquares() />
         </div>
         <div class="col-sm-5">
-            <Grid squares=player2.OpponentGrid.Squares />
+            <Grid squares=player2.OpponentGrid.GetSquares() />
         </div>
     </div>
 </div>

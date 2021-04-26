@@ -9,8 +9,10 @@ namespace Battleship.Game
     {
         public override IGrid Create(int size)
         {
-            // TODO: create fill strategy
-            return new Grid(size, null);
+            var grid = new Grid(size, new EmptyFiller());
+            grid.Fill();
+
+            return grid;
         }
     }
 }

@@ -7,11 +7,11 @@ namespace Battleship.Models
     public class Grid : IGrid
     {
         private int Size { get; }
-        public SquareStates[,] Squares { get; }
+        protected SquareStates[,] Squares;
         protected GridType Type { get; }
         protected List<SquareStates> AvailableStates = new List<SquareStates>();
         protected List<SquareStateTransition> AvailableTransitions = new List<SquareStateTransition>();
-        protected IFillStrategy FillStrategy;
+        protected IFillStrategy fillStrategy;
 
         public Grid()
         {
@@ -21,24 +21,17 @@ namespace Battleship.Models
         public Grid(int size, IFillStrategy _fillStrategy)
         {
             Size = size;
-            FillStrategy = _fillStrategy;
             Squares = new SquareStates[size, size];
-            Fill();
+            fillStrategy = _fillStrategy;
         }
 
         public void Fill()
         {
-            // TODO: use fillstrategy
             // TODO: Merge FillStrategy with Type?
-
-            if (Type == GridType.Main)
-            {
-                Squares[5, 2] = SquareStates.Ship;
-                Squares[5, 3] = SquareStates.Ship;
-
-                Squares[7, 7] = SquareStates.Ship;
-            }
+            fillStrategy.Fill(ref Squares);
         }
+
+        public SquareStates[,] GetSquares() => Squares;
 
         public void ChangeSquareState(Coordinates coordinates, SquareStates newState)
         {
