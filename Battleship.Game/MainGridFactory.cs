@@ -7,9 +7,10 @@ namespace Battleship.Game
 {
     public class MainGridFactory : GridFactory
     {
-        public override IGrid Create()
+        public override IGrid Create(int size)
         {
-            return new Grid();
+            // TODO: create fill strategy
+            return new Grid(size, null);
         }
     }
 }
