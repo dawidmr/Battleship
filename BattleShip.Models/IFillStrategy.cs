@@ -1,4 +1,4 @@
-﻿namespace BattleShip.Models
+﻿namespace Battleship.Models
 {
     public interface IFillStrategy
     {

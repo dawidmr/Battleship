@@ -1,10 +1,12 @@
 ﻿using Battleship.Shared;
-using BattleShip.Models;
+using Battleship.Models;
 
 namespace Battleship.Game
 {
     public interface IPlayer
     {
+        IGrid MainGrid { get; set; }
+        IGrid OpponentGrid { get; set; }
         Coordinates ChooseTarget();
         bool HasAnyShips();
         SquareStates Shot(Coordinates coordinates);

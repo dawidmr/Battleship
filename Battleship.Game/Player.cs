@@ -1,5 +1,5 @@
 ﻿using Battleship.Shared;
-using BattleShip.Models;
+using Battleship.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,13 +8,18 @@ namespace Battleship.Game
 {
     public class Player : IPlayer
     {
-        protected IGrid MainGrid { get; set; }
-        protected IGrid OpponentGrid { get; set; }
+        public IGrid MainGrid { get; set; }
+        public IGrid OpponentGrid { get; set; }
 
         public Player(IGridCreator gridCreator)
         {
             MainGrid = gridCreator.Create(GridType.Main);
             OpponentGrid = gridCreator.Create(GridType.Opponent);
+        }
+
+        public Player()
+        {
+
         }
 
         public Coordinates ChooseTarget()

@@ -1,4 +1,4 @@
-﻿using BattleShip.Models;
+﻿using Battleship.Models;
 using System;
 
 namespace Battleship.Game

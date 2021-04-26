@@ -1,4 +1,4 @@
-﻿using BattleShip.Models;
+﻿using Battleship.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,18 +7,17 @@ namespace Battleship.Game
 {
     public class GridCreator : IGridCreator
     {
-        private readonly GridFactory Factory;
         private int Size;
 
-        public GridCreator(GridType gridType, int size)
+        public GridCreator(int size)
         {
-            Factory = ChooseFactory(gridType);
             Size = size;
         }
 
         public IGrid Create(GridType gridType)
         {
-            return Factory.Create(Size);
+            var factory = ChooseFactory(gridType);
+            return factory.Create(Size);
         }
 
         public static GridFactory ChooseFactory(GridType gridType) => gridType switch

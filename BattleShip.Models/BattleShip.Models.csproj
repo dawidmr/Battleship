@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <AssemblyName>BattleShip.Models</AssemblyName>
     <RootNamespace>BattleShip.Models</RootNamespace>
   </PropertyGroup>

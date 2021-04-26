@@ -18,7 +18,7 @@
             @for (int j = 0; j < 10; j++)
             {
                 <div class="col-sm" style="border: solid 1px black">
-                    x
+                    @GetCharFromSquareState(squares[i, j]);
                 </div>
             }
         </div>
@@ -26,8 +26,26 @@
 
 @code {
 
+    [Parameter]
+    public SquareStates[,] squares { get; set; }
+
     private char GetCharFromInt(int number)
     {
         return Convert.ToChar(65 + number);
+    }
+
+    private char GetCharFromSquareState(SquareStates state)
+    {
+        switch(state)
+        {
+            case SquareStates.Ship:
+                return 's';
+            case SquareStates.Virgin:
+                return ' ';
+            case SquareStates.MissedShot:
+                return '*';
+            default:
+                return ' ';
+        }
     }
 }

@@ -1,26 +1,39 @@
 ﻿@page "/battleshipgame"
+@inject IPlayer Player
 
 <h3>BattleshipGame</h3>
 
 <div class="container">
     <div class="row">
         <div class="col-sm-5">
-            <Grid />
+            <Grid squares=player1.MainGrid.Squares/>
         </div>
         <div class="col-sm-5">
-            <Grid />
+            <Grid squares=player1.OpponentGrid.Squares/>
         </div>
     </div>
     <div class="row">
         <div class="col-sm-5">
-            <Grid />
+            <Grid squares=player2.MainGrid.Squares />
         </div>
         <div class="col-sm-5">
-            <Grid />
+            <Grid squares=player2.OpponentGrid.Squares />
         </div>
     </div>
 </div>
 
-@code {
+@code {        
+
+    IPlayer player1;
+    IPlayer player2;
+
+    protected override Task OnInitializedAsync()
+    {
+        player1 = Player;
+        player2 = Player;
+
+        return Task.CompletedTask;
+    }
+
 
 }

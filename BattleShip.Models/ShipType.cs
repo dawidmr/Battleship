@@ -1,4 +1,4 @@
-﻿namespace BattleShip.Models
+﻿namespace Battleship.Models
 {
     internal class ShipType
     {

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Text;
 
-namespace BattleShip.Models
+namespace Battleship.Models
 {
     public class Square
     {

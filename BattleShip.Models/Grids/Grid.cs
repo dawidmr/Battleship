@@ -2,12 +2,12 @@
 using System;
 using System.Collections.Generic;
 
-namespace BattleShip.Models
+namespace Battleship.Models
 {
     public class Grid : IGrid
     {
         private int Size { get; }
-        protected SquareStates[,] Squares;
+        public SquareStates[,] Squares { get; }
         protected GridType Type { get; }
         protected List<SquareStates> AvailableStates = new List<SquareStates>();
         protected List<SquareStateTransition> AvailableTransitions = new List<SquareStateTransition>();

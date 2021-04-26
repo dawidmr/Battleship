@@ -11,6 +11,8 @@ namespace Battleship.Server
 {
     public class Startup
     {
+        public const int GridSize = 10;
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -25,7 +27,8 @@ namespace Battleship.Server
 
             services.AddControllersWithViews();
             services.AddRazorPages();
-            services.AddScoped<IGridCreator, GridCreator>();
+            services.AddScoped<IGridCreator>(x => new GridCreator(GridSize));
+            services.AddTransient<IPlayer, Player>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

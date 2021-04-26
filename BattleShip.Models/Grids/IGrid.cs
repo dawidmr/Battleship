@@ -1,10 +1,11 @@
 ﻿using Battleship.Shared;
 
-namespace BattleShip.Models
+namespace Battleship.Models
 {
     public interface IGrid
     {
         void ChangeSquareState(Coordinates coordinates, SquareStates newState);
         void Fill();
+        SquareStates[,] Squares { get; }
     }
 }
