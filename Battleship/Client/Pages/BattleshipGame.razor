@@ -1,5 +1,5 @@
 ﻿@page "/battleshipgame"
-@inject IPlayer Player
+// inject IPlayer Player
 
 <h3>BattleshipGame</h3>
 
@@ -27,13 +27,10 @@
     IPlayer player1;
     IPlayer player2;
 
-    protected override Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
-        player1 = Player;
-        player2 = Player;
-
-        return Task.CompletedTask;
+        // TODO: inject
+        player1 = new Player(new GridCreator(10));
+        player2 = new Player(new GridCreator(10));
     }
-
-
 }

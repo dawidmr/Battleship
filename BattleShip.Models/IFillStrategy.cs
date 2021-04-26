@@ -2,6 +2,6 @@
 {
     public interface IFillStrategy
     {
-        void Fill(ref SquareStates[,] squares);
+        void Fill(ref SquareStates[,] squares, int size);
     }
 }

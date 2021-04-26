@@ -1,57 +1,66 @@
 ﻿using Battleship.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Battleship.Game
 {
     public class ShipsVerticalFiller : IFillStrategy
     {
-        Dictionary<int, int> ships;
+        List<Ship> ships;
 
-        public ShipsVerticalFiller(Dictionary<int, int> _ships)
+        public ShipsVerticalFiller(List<Ship> _ships)
         {
             ships = _ships;
         }
 
-        public void Fill(ref SquareStates[,] squares)
+        public void Fill(ref SquareStates[,] squares, int size)
         {
+
+            // TODO: last line not filled
             var random = new Random();
-            int maxValue = squares.Length - 1;
+            int maxValue = size - 1;
 
-            foreach (var ship in ships)
+            foreach (var ship in ships.OrderByDescending(x => x.Size))
             {
-                var length = ship.Key;
-
-                while (true)
+                for (int i = 0; i < ship.Count; i++)
                 {
-                    int x = random.Next(maxValue);
-                    int y = random.Next(maxValue);
-
-                    bool isPlace = IsPlaceForVerticalShip(squares, x, y, length);
-
-                    if (isPlace)
+                    while (true)
                     {
-                        PlaceShipVertical(ref squares, x, y, length);
-                        break;
+                        int x = random.Next(maxValue);
+                        int y = random.Next(maxValue);
+
+                        bool isPlace = IsPlaceForVerticalShip(squares, maxValue, x, y, ship.Size);
+
+                        if (isPlace)
+                        {
+                            PlaceShipVertical(ref squares, x, y, ship.Size);
+                            break;
+                        }
                     }
                 }
             }
         }
 
-        private void PlaceShipVertical(ref SquareStates[,] squares, int x, int y, int length)
+        public void PlaceShipVertical(ref SquareStates[,] squares, int x, int y, int length)
         {
-            for (int i = y; i <= length; i++)
+            for (int i = y; i < y + length; i++)
             {
-                squares[x, y] = SquareStates.Ship;
+                squares[x, i] = SquareStates.Ship;
             }
         }
 
-        private bool IsPlaceForVerticalShip(SquareStates[,] squares, int x, int y, int length)
+        public bool IsPlaceForVerticalShip(SquareStates[,] squares, int size, int x, int y, int length)
         {
-            for (int i = y; i <= length; i++)
+            if (y + length - 1 > size)
             {
-                if (!IsEmptyNeighbourhood(squares, x, y))
+                return false;
+            }
+
+            for (int i = y; i < y + length; i++)
+            {
+                if (!IsEmptyNeighbourhood(squares, size, x, i))
                 {
                     return false;
                 }
@@ -71,11 +80,11 @@ namespace Battleship.Game
         /// x - Neighbourhood (checked)
         /// * - Not checked
         /// </summary>
-        private bool IsEmptyNeighbourhood(SquareStates[,] squares, int x, int y)
+        public bool IsEmptyNeighbourhood(SquareStates[,] squares, int size, int x, int y)
         {
             for (int checkedY = y - 1; checkedY <= y + 1; checkedY++)
             {
-                if (!IsEmptyRow(squares, x, checkedY))
+                if (!IsEmptyRow(squares, size, x, checkedY))
                 {
                     return false;
                 }
@@ -84,10 +93,8 @@ namespace Battleship.Game
             return true;
         }
 
-        private bool IsEmptyRow(SquareStates[,] squares, int x, int y)
+        public bool IsEmptyRow(SquareStates[,] squares, int size, int x, int y)
         {
-            var size = squares.Length;
-
             // row above or below the grid
             if (y < 0 || y >= size)
             {

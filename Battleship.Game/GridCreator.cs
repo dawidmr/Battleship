@@ -14,17 +14,17 @@ namespace Battleship.Game
             Size = size;
         }
 
-        public IGrid Create(GridType gridType)
-        {
-            var factory = ChooseFactory(gridType);
-            return factory.Create(Size);
-        }
-
         public static GridFactory ChooseFactory(GridType gridType) => gridType switch
         {
             GridType.Main => new MainGridFactory(),
             GridType.Opponent => new OpponentGridFactory(),
             _ => throw new UnexpectedGridTypeException(nameof(gridType))
         };
+
+        public IGrid Create(GridType gridType, List<Ship> ships)
+        {
+            var factory = ChooseFactory(gridType);
+            return factory.Create(Size, ships);
+        }
     }
 }

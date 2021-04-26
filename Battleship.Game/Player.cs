@@ -11,9 +11,17 @@ namespace Battleship.Game
         public IGrid MainGrid { get; set; }
         public IGrid OpponentGrid { get; set; }
 
+        public List<Ship> ships = new List<Ship>()
+        {
+            new Ship() {Size = 1, Count = 4 },
+            new Ship() {Size = 2, Count = 3 },
+            new Ship() {Size = 3, Count = 2 },
+            new Ship() {Size = 4, Count = 1 }
+        };
+
         public Player(IGridCreator gridCreator)
         {
-            MainGrid = gridCreator.Create(GridType.Main);
+            MainGrid = gridCreator.Create(GridType.Main, ships);
             OpponentGrid = gridCreator.Create(GridType.Opponent);
         }
 

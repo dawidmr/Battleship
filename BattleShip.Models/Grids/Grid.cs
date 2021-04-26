@@ -27,8 +27,8 @@ namespace Battleship.Models
 
         public void Fill()
         {
-            // TODO: Merge FillStrategy with Type?
-            fillStrategy.Fill(ref Squares);
+            // TODO: Merge FillStrategy with Type
+            fillStrategy.Fill(ref Squares, Size);
         }
 
         public SquareStates[,] GetSquares() => Squares;

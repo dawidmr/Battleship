@@ -7,7 +7,7 @@ namespace Battleship.Game
 {
     public class OpponentGridFactory : GridFactory
     {
-        public override IGrid Create(int size)
+        public override IGrid Create(int size, List<Ship> ships)
         {
             var grid = new Grid(size, new EmptyFiller());
             grid.Fill();

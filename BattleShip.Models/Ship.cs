@@ -6,8 +6,8 @@ namespace Battleship.Models
 {
     public class Ship
     {
-        public List<Square> Coordinates = new List<Square>();
-
-        public int ShipSize => Coordinates.Count;
+        public string Name { get; set; }
+        public int Size { get; set; }
+        public int Count { get; set; }
     }
 }
