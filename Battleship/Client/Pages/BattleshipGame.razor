@@ -7,31 +7,22 @@
 <button @onclick="StartGame">Play</button>
 </div>
 
-<br />
-<label>
-    1: @target1.X @target1.Y
-</label>
-<br/>
-<label>
-    2: @target2.X @target2.Y
-</label>
-
-<div class="container">
+<div class="container gridcontainer">
     <div class="row">
-        <div class="col-sm-5">
+        <div class="col-sm-5 grid-column">
             <h3>Player 1</h3>
             <Grid squares=player1.MainGrid.GetSquares()/>
         </div>
-        <div class="col-sm-5">
+        <div class="col-sm-5 grid-column">
             <h3>Player 2</h3>
             <Grid squares=player2.MainGrid.GetSquares()/>
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-5">
+        <div class="col-sm-5 grid-column">
             <Grid squares=player1.OpponentGrid.GetSquares() />
         </div>
-        <div class="col-sm-5">
+        <div class="col-sm-5 grid-column">
             <Grid squares=player2.OpponentGrid.GetSquares() />
         </div>
     </div>
