@@ -63,10 +63,16 @@ namespace Battleship.Models
                     MarkShipAsSunk(coordinates);
                     return SquareStates.SunkShip;
                 }
+
+                Squares[coordinates.X, coordinates.Y] = newState;
             }
             else
             {
-                Squares[coordinates.X, coordinates.Y] = newState;
+                if (newState != SquareStates.MissedShot)
+                {
+                    // TODO: handle it in state transition
+                    Squares[coordinates.X, coordinates.Y] = newState;
+                }
             }
 
             return newState;

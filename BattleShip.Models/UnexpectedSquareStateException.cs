@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace Battleship.Models
 {
     [Serializable]
-    internal class UnexpectedSquareStateException : Exception
+    public class UnexpectedSquareStateException : Exception
     {
         public UnexpectedSquareStateException()
         {

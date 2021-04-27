@@ -11,14 +11,22 @@ namespace Battleship.Tests
         [TestMethod]
         public void FillTest()
         {
-            //Dictionary<int, int> ships = new Dictionary<int, int>() { { 1, 4 }, { 2, 3 }, { 3, 2 }, { 4, 1 } };
-            //Grid grid = new Grid(10, new EmptyFiller());
+            int size = 10;
+            int shipSize = 4;
+            List<Ship> ships = new List<Ship>()
+            {
+                new Ship()
+                {
+                    Count = 1,
+                    Size = shipSize
+                }
+            };
 
-            //ShipsVerticalFiller filler = new ShipsVerticalFiller(ships);
+            ShipsVerticalFiller filler = new ShipsVerticalFiller(ships);
 
-            //var squares = grid.GetSquares();
+            var squares = new SquareStates[size, size];
 
-            //filler.Fill(ref squares);
+            var result = filler.IsPlaceForVerticalShip(squares, size, 0, 6, shipSize);
         }
     }
 }

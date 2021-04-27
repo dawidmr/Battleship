@@ -1,5 +1,4 @@
-﻿<h3>Grid</h3>
-
+﻿
     <div class="row">
         @for (int hi = 0; hi <= 10; hi++)
         {
@@ -20,8 +19,8 @@
 
             @for (int j = 0; j < 10; j++)
             {
-                <div class="col-sm" style="border: solid 1px black">
-                    @GetCharFromSquareState(squares[i, j])
+                <div class="col-sm @GetFormat(squares[j,i])" style="border: solid @GetBorder(squares[j,i]) black">
+                    @GetCharFromSquareState(squares[j, i])
                 </div>
             }
         </div>
@@ -37,14 +36,46 @@
         return Convert.ToChar(65 + number);
     }
 
+    public string GetBorder(SquareStates state)
+    {
+        switch (state)
+        {
+            case SquareStates.HittedShip:
+            case SquareStates.Ship:
+            case SquareStates.SunkShip:
+                return "3px";
+            default:
+                return "1px";
+        }
+    }
+
+    private string GetFormat(SquareStates state)
+    {
+        switch (state)
+        {
+            case SquareStates.Ship:
+                return "bg-primary";
+            case SquareStates.HittedShip:
+                return "bg-warning";
+            case SquareStates.SunkShip:
+                return "bg-warning";
+            case SquareStates.Virgin:
+                return "bg-white";
+            case SquareStates.MissedShot:
+                return "bg-secondary";
+            default:
+                return "bg-white";
+        }
+    }
+
     private char GetCharFromSquareState(SquareStates state)
     {
         switch(state)
         {
             case SquareStates.Ship:
-                return 'S';
+                return ' ';
             case SquareStates.HittedShip:
-                return '/';
+                return ' ';
             case SquareStates.SunkShip:
                 return 'X';
             case SquareStates.Virgin:

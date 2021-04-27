@@ -4,7 +4,7 @@
 <h3>BattleshipGame</h3>
 
 <div>
-<button @onclick="StartGame">Start</button>
+<button @onclick="StartGame">Play</button>
 </div>
 
 <br />
@@ -19,9 +19,11 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-5">
+            <h3>Player 1</h3>
             <Grid squares=player1.MainGrid.GetSquares()/>
         </div>
         <div class="col-sm-5">
+            <h3>Player 2</h3>
             <Grid squares=player2.MainGrid.GetSquares()/>
         </div>
     </div>
@@ -57,7 +59,7 @@
             player1.UpdateOpponentGrid(target1, newTarget1State);
 
             target2 = player2.ChooseTarget();
-            var newTarget2State = player2.Shot(target2);
+            var newTarget2State = player1.Shot(target2);
             player2.UpdateOpponentGrid(target2, newTarget2State);
 
         

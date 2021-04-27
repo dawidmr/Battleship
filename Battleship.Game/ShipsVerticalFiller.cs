@@ -17,7 +17,6 @@ namespace Battleship.Game
 
         public void Fill(ref SquareStates[,] squares, int size)
         {
-
             // TODO: last line not filled
             var random = new Random();
             int maxValue = size - 1;

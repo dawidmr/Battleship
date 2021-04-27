@@ -9,8 +9,7 @@ namespace Battleship.Game
     {
         public override IGrid Create(int size, List<Ship> ships)
         {
-            // TODO: new square transition implementation
-            var grid = new Grid(size, new EmptyFiller(), new SquareStateTransition());
+            var grid = new Grid(size, new EmptyFiller(), new OpponentStateTransition());
             grid.Fill();
 
             return grid;
