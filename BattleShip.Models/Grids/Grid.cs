@@ -1,4 +1,5 @@
-﻿using Battleship.Shared;
+﻿using Battleship.Game.Exceptions;
+using Battleship.Shared;
 using System;
 using System.Collections.Generic;
 
@@ -6,23 +7,22 @@ namespace Battleship.Models
 {
     public class Grid : IGrid
     {
-        private int Size { get; }
+        public int Size { get; }
         protected SquareStates[,] Squares;
-        protected GridType Type { get; }
-        protected List<SquareStates> AvailableStates = new List<SquareStates>();
-        protected List<SquareStateTransition> AvailableTransitions = new List<SquareStateTransition>();
-        protected IFillStrategy fillStrategy;
+        private ISquareStateTransition squareStateTransitions;
+        private IFillStrategy fillStrategy;
 
         public Grid()
         {
             // TODO: to remove
         }
 
-        public Grid(int size, IFillStrategy _fillStrategy)
+        public Grid(int size, IFillStrategy _fillStrategy, ISquareStateTransition _sqareStateTransitions)
         {
             Size = size;
             Squares = new SquareStates[size, size];
             fillStrategy = _fillStrategy;
+            squareStateTransitions = _sqareStateTransitions;
         }
 
         public void Fill()
@@ -35,7 +35,60 @@ namespace Battleship.Models
 
         public void ChangeSquareState(Coordinates coordinates, SquareStates newState)
         {
+            ValidateCoordinates(coordinates);
 
+            var currentState = Squares[coordinates.X, coordinates.Y];
+
+            if (squareStateTransitions.IsValidTransition(currentState, newState))
+            {
+                Squares[coordinates.X, coordinates.Y] = newState;
+            }
+            else
+            {
+                throw new InvalidStateTransitionException($"Old state: {currentState}, new state: {newState}");
+            }
+        }
+
+        public SquareStates Shot(Coordinates coordinates)
+        {
+            ValidateCoordinates(coordinates);
+
+            var square = Squares[coordinates.X, coordinates.Y];
+            var newState = squareStateTransitions.GetNewState(square);
+
+            if (newState == SquareStates.HittedShip)
+            {
+                if (IsSunkShip(coordinates))
+                {
+                    MarkShipAsSunk(coordinates);
+                    return SquareStates.SunkShip;
+                }
+            }
+            else
+            {
+                Squares[coordinates.X, coordinates.Y] = newState;
+            }
+
+            return newState;
+        }
+
+        private void ValidateCoordinates(Coordinates coordinates)
+        {
+            if (coordinates.X > Size || coordinates.Y > Size)
+            {
+                throw new OutOfGridException($"X: {coordinates.X}, Y: {coordinates.Y}, size: {Size}.");
+            }
+        }
+
+        private void MarkShipAsSunk(Coordinates coordinates)
+        {
+            throw new NotImplementedException();
+        }
+
+        private bool IsSunkShip(Coordinates coordinates)
+        {
+            // TODO: implement 
+            return false;
         }
     }
 }

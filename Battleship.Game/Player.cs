@@ -10,7 +10,9 @@ namespace Battleship.Game
     {
         public IGrid MainGrid { get; set; }
         public IGrid OpponentGrid { get; set; }
+        private ITargetStrategy targetStrategy { get; }
 
+        // TODO: inject ships
         public List<Ship> ships = new List<Ship>()
         {
             new Ship() {Size = 1, Count = 4 },
@@ -19,30 +21,57 @@ namespace Battleship.Game
             new Ship() {Size = 4, Count = 1 }
         };
 
-        public Player(IGridCreator gridCreator)
+        public Player(IGridCreator gridCreator, ITargetStrategy _targetStrategy)
         {
+            targetStrategy = _targetStrategy;
             MainGrid = gridCreator.Create(GridType.Main, ships);
             OpponentGrid = gridCreator.Create(GridType.Opponent);
         }
 
         public Coordinates ChooseTarget()
         {
-            throw new NotImplementedException();
+            return targetStrategy.ChooseTarget(OpponentGrid);
         }
 
         public bool HasAnyShips()
         {
-            throw new NotImplementedException();
-        }
+            var squares = MainGrid.GetSquares();
 
-        Coordinates IPlayer.ChooseTarget()
-        {
-            throw new NotImplementedException();
+            foreach (var square in squares)
+            {
+                if (square == SquareStates.Ship)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         public SquareStates Shot(Coordinates coordinates)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return MainGrid.Shot(coordinates);
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+        }
+
+        public void UpdateOpponentGrid(Coordinates coordinates, SquareStates newState)
+        {
+            try
+            {
+                OpponentGrid.ChangeSquareState(coordinates, newState);
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
         }
     }
 }

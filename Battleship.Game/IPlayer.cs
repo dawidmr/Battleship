@@ -10,5 +10,6 @@ namespace Battleship.Game
         Coordinates ChooseTarget();
         bool HasAnyShips();
         SquareStates Shot(Coordinates coordinates);
+        void UpdateOpponentGrid(Coordinates coordinates, SquareStates newState);
     }
 }

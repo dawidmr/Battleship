@@ -3,6 +3,19 @@
 
 <h3>BattleshipGame</h3>
 
+<div>
+<button @onclick="StartGame">Start</button>
+</div>
+
+<br />
+<label>
+    1: @target1.X @target1.Y
+</label>
+<br/>
+<label>
+    2: @target2.X @target2.Y
+</label>
+
 <div class="container">
     <div class="row">
         <div class="col-sm-5">
@@ -27,10 +40,26 @@
     IPlayer player1;
     IPlayer player2;
 
+    Coordinates target1 = new Coordinates(0, 0);
+    Coordinates target2 = new Coordinates(0, 0);
+
     protected override void OnInitialized()
     {
         // TODO: inject
-        player1 = new Player(new GridCreator(10));
-        player2 = new Player(new GridCreator(10));
+        player1 = new Player(new GridCreator(10), new RandomTargetStrategy());
+        player2 = new Player(new GridCreator(10), new RandomTargetStrategy());
+    }
+
+    public void StartGame()
+    {
+            target1 = player1.ChooseTarget();
+            var newTarget1State = player2.Shot(target1);
+            player1.UpdateOpponentGrid(target1, newTarget1State);
+
+            target2 = player2.ChooseTarget();
+            var newTarget2State = player2.Shot(target2);
+            player2.UpdateOpponentGrid(target2, newTarget2State);
+
+        
     }
 }

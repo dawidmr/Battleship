@@ -42,13 +42,17 @@
         switch(state)
         {
             case SquareStates.Ship:
-                return 's';
+                return 'S';
+            case SquareStates.HittedShip:
+                return '/';
+            case SquareStates.SunkShip:
+                return 'X';
             case SquareStates.Virgin:
                 return ' ';
             case SquareStates.MissedShot:
                 return '*';
             default:
-                return ' ';
+                return '?';
         }
     }
 }
