@@ -5,6 +5,6 @@ namespace Battleship.Game.Interfaces
 {
     public interface IGridCreator
     {
-        IGrid Create(GridType gridType, List<Ship> ships = default);
+        IGrid Create(GridType gridType, int gridSize, List<Ship> ships = default);
     }
 }

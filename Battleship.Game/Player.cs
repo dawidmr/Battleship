@@ -7,24 +7,15 @@ namespace Battleship.Game
 {
     public class Player : IPlayer
     {
-        public IGrid MainGrid { get; set; }
+        public IGrid PlayerGrid { get; set; }
         public IGrid OpponentGrid { get; set; }
         private ITargetStrategy targetStrategy { get; }
 
-        // TODO: inject ships
-        public List<Ship> ships = new List<Ship>()
-        {
-            new Ship() {Size = 1, Count = 4 },
-            new Ship() {Size = 2, Count = 3 },
-            new Ship() {Size = 3, Count = 2 },
-            new Ship() {Size = 4, Count = 1 }
-        };
-
-        public Player(IGridCreator gridCreator, ITargetStrategy _targetStrategy)
+        public Player(IGridCreator gridCreator, ITargetStrategy _targetStrategy, int gridSize, List<Ship> ships)
         {
             targetStrategy = _targetStrategy;
-            MainGrid = gridCreator.Create(GridType.Main, ships);
-            OpponentGrid = gridCreator.Create(GridType.Opponent);
+            PlayerGrid = gridCreator.Create(GridType.Main, gridSize, ships);
+            OpponentGrid = gridCreator.Create(GridType.Opponent, gridSize);
         }
 
         public Coordinates ChooseTarget()
@@ -34,7 +25,7 @@ namespace Battleship.Game
 
         public bool HasAnyShips()
         {
-            var squares = MainGrid.GetSquares();
+            var squares = PlayerGrid.GetSquares();
 
             foreach (var square in squares)
             {
@@ -51,7 +42,7 @@ namespace Battleship.Game
         {
             try
             {
-                return MainGrid.ChangeSquareState(coordinates);
+                return PlayerGrid.ChangeSquareState(coordinates);
             }
             catch (Exception ex)
             {

@@ -7,11 +7,8 @@ namespace Battleship.Game.Grids
 {
     public class GridCreator : IGridCreator
     {
-        private int Size;
-
-        public GridCreator(int size)
+        public GridCreator()
         {
-            Size = size;
         }
 
         public static GridFactory ChooseFactory(GridType gridType) => gridType switch
@@ -21,10 +18,10 @@ namespace Battleship.Game.Grids
             _ => throw new UnexpectedGridTypeException(nameof(gridType))
         };
 
-        public IGrid Create(GridType gridType, List<Ship> ships)
+        public IGrid Create(GridType gridType, int gridSize, List<Ship> ships)
         {
             var factory = ChooseFactory(gridType);
-            return factory.Create(Size, ships);
+            return factory.Create(gridSize, ships);
         }
     }
 }

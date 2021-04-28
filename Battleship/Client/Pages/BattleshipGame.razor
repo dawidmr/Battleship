@@ -1,5 +1,5 @@
 ﻿@page "/battleshipgame"
-// inject IPlayer Player
+@inject IEngine Engine
 
 <h3>BattleshipGame</h3>
 
@@ -11,48 +11,62 @@
     <div class="row">
         <div class="col-sm-5 grid-column">
             <h3>Player 1</h3>
-            <Grid squares=player1.MainGrid.GetSquares()/>
+            <Grid squares=Joe.PlayerGrid.GetSquares()/>
         </div>
         <div class="col-sm-5 grid-column">
             <h3>Player 2</h3>
-            <Grid squares=player2.MainGrid.GetSquares()/>
+            <Grid squares=Kim.PlayerGrid.GetSquares()/>
         </div>
     </div>
     <div class="row">
         <div class="col-sm-5 grid-column">
-            <Grid squares=player1.OpponentGrid.GetSquares() />
+            <Grid squares=Joe.OpponentGrid.GetSquares() />
         </div>
         <div class="col-sm-5 grid-column">
-            <Grid squares=player2.OpponentGrid.GetSquares() />
+            <Grid squares=Kim.OpponentGrid.GetSquares() />
         </div>
     </div>
 </div>
 
 @code {        
 
-    IPlayer player1;
-    IPlayer player2;
+    IPlayer Joe;
+    IPlayer Kim;
 
-    Coordinates target1 = new Coordinates(0, 0);
-    Coordinates target2 = new Coordinates(0, 0);
 
-    protected override void OnInitialized()
+    public void f()
     {
-        // TODO: inject
-        player1 = new Player(new GridCreator(10), new RandomTargetStrategy());
-        player2 = new Player(new GridCreator(10), new RandomTargetStrategy());
+
     }
 
     public void StartGame()
     {
-            target1 = player1.ChooseTarget();
-            var newTarget1State = player2.Shot(target1);
-            player1.UpdateOpponentGrid(target1, newTarget1State);
+        Engine.Play(Joe, Kim);
+        Engine.Play(Kim, Joe);
 
-            target2 = player2.ChooseTarget();
-            var newTarget2State = player1.Shot(target2);
-            player2.UpdateOpponentGrid(target2, newTarget2State);
+        //target1 = player1.ChooseTarget();
+        //var newTarget1State = player2.Shot(target1);
+        //player1.UpdateOpponentGrid(target1, newTarget1State);
 
-        
+        //target2 = player2.ChooseTarget();
+        //var newTarget2State = player1.Shot(target2);
+        //player2.UpdateOpponentGrid(target2, newTarget2State);
+
+
     }
+
+    //protected override void OnInitialized()
+    //{
+    //    Joe = Engine.CreatePlayer();
+    //    Kim = Engine.CreatePlayer();
+    //}
+
+   
+    protected override async Task OnInitializedAsync()
+    {
+        Joe = await Engine.CreatePlayerAsync();
+        Kim = await Engine.CreatePlayerAsync();
+    }
+
+    protected override 
 }

@@ -1,6 +1,8 @@
+using Battleship.Client.Services;
 using Battleship.Game;
 using Battleship.Game.Grids;
 using Battleship.Game.Interfaces;
+using Battleship.Game.Targeting;
 using Battleship.Models;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -16,9 +18,6 @@ namespace Battleship.Client
 {
     public class Program
     {
-        // TODO: przenieœæ do konfiguracji
-        public const int GridSize = 10;
-
         private static async Task DebugDelayAsync()
         {
 #if DEBUG
@@ -34,8 +33,10 @@ namespace Battleship.Client
             builder.RootComponents.Add<App>("app");
 
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
-            builder.Services.AddTransient<IGridCreator>(x => new GridCreator(GridSize));
-            builder.Services.AddTransient<IPlayer, Player>();
+            builder.Services.AddScoped<IConfigService, ConfigService>();
+            builder.Services.AddTransient<IGridCreator, GridCreator>();
+            builder.Services.AddScoped<ITargetStrategy, RandomTargetStrategy>();
+            builder.Services.AddScoped<IEngine, Engine>();
             await builder.Build().RunAsync();
         }
     }
