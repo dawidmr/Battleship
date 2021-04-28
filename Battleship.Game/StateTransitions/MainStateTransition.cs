@@ -4,7 +4,7 @@ using Battleship.Models;
 
 namespace Battleship.Game.StateTransitions
 {
-    public class SquareStateTransition : ISquareStateTransition
+    public class MainStateTransition : ISquareStateTransition
     {
         public SquareStates GetNewState(SquareStates currentState)
         {
@@ -13,11 +13,10 @@ namespace Battleship.Game.StateTransitions
 
         private static SquareStates GetState(SquareStates currentState) => currentState switch
         {
+            SquareStates.Virgin => SquareStates.Virgin,
             SquareStates.HittedShip => SquareStates.HittedShip,
-            SquareStates.MissedShot => SquareStates.MissedShot,
             SquareStates.Ship => SquareStates.HittedShip,
             SquareStates.SunkShip => SquareStates.SunkShip,
-            SquareStates.Virgin => SquareStates.MissedShot,
             _ => throw new UnexpectedSquareStateException(nameof(currentState))
         };
 
@@ -26,6 +25,11 @@ namespace Battleship.Game.StateTransitions
             var newValidState = GetNewState(oldState);
 
             return newState == newValidState;
+        }
+
+        public SquareStates GetNewState(SquareStates currentState, SquareStates suggestedState)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

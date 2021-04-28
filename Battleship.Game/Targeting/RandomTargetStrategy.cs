@@ -14,13 +14,19 @@ namespace Battleship.Game.Targeting
             int maxValue = opponentGrid.Size;
             var random = new Random();
             var squares = opponentGrid.GetSquares();
+
+            if (!opponentGrid.IsAnyVirginSquare())
+            {
+                throw new FailedToChooseTargetException("No available coordinates");
+            }
+
             int x, y, attempts = 0;
 
             do
             {
                 if (attempts++ > maxAttempts)
                 {
-                    throw new FailedToChooseTargetException();
+                    throw new FailedToChooseTargetException($"Max attempts: {maxAttempts} reached.");
                 }
 
                 x = random.Next(maxValue);

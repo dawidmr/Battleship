@@ -51,7 +51,7 @@ namespace Battleship.Game
         {
             try
             {
-                return MainGrid.Shot(coordinates);
+                return MainGrid.ChangeSquareState(coordinates);
             }
             catch (Exception ex)
             {

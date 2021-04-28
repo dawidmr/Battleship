@@ -5,9 +5,9 @@ namespace Battleship.Game.Interfaces
     public interface IGrid
     {
         int Size { get; }
-        void ChangeSquareState(Coordinates coordinates, SquareStates newState);
+        SquareStates ChangeSquareState(Coordinates coordinates, SquareStates? newState = null);
         void Fill();
         SquareStates[,] GetSquares();
-        SquareStates Shot(Coordinates coordinates);
+        bool IsAnyVirginSquare();
     }
 }

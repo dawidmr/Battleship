@@ -1,9 +1,7 @@
 ﻿using Battleship.Game.Exceptions;
 using Battleship.Game.Interfaces;
 using Battleship.Models;
-
 using System;
-using System.Collections.Generic;
 
 namespace Battleship.Game.Grids
 {
@@ -13,11 +11,6 @@ namespace Battleship.Game.Grids
         protected SquareStates[,] Squares;
         private ISquareStateTransition squareStateTransitions;
         private IFillStrategy fillStrategy;
-
-        public Grid()
-        {
-            // TODO: to remove
-        }
 
         public Grid(int size, IFillStrategy _fillStrategy, ISquareStateTransition _sqareStateTransitions)
         {
@@ -29,55 +22,62 @@ namespace Battleship.Game.Grids
 
         public void Fill()
         {
-            // TODO: Merge FillStrategy with Type
             fillStrategy.Fill(ref Squares, Size);
         }
 
         public SquareStates[,] GetSquares() => Squares;
 
-        public void ChangeSquareState(Coordinates coordinates, SquareStates newState)
+        public SquareStates ChangeSquareState(Coordinates coordinates, SquareStates? suggestedState)
         {
             ValidateCoordinates(coordinates);
 
             var currentState = Squares[coordinates.X, coordinates.Y];
+            SquareStates newState;
 
-            if (squareStateTransitions.IsValidTransition(currentState, newState))
+            if (suggestedState.HasValue)
             {
-                Squares[coordinates.X, coordinates.Y] = newState;
+                newState = squareStateTransitions.GetNewState(currentState, suggestedState.Value);
             }
             else
             {
-                throw new InvalidStateTransitionException($"Old state: {currentState}, new state: {newState}");
-            }
-        }
+                newState = squareStateTransitions.GetNewState(currentState);
 
-        public SquareStates Shot(Coordinates coordinates)
-        {
-            ValidateCoordinates(coordinates);
-
-            var square = Squares[coordinates.X, coordinates.Y];
-            var newState = squareStateTransitions.GetNewState(square);
-
-            if (newState == SquareStates.HittedShip)
-            {
-                if (IsSunkShip(coordinates))
+                if (newState == SquareStates.HittedShip &&
+                    IsSunkShip(coordinates))
                 {
-                    MarkShipAsSunk(coordinates);
-                    return SquareStates.SunkShip;
-                }
+                    ValidateTransition(newState, SquareStates.SunkShip);
+                    newState = SquareStates.SunkShip;
+                    SetStateForWholeShip(coordinates, newState);
+                }                
+            }
 
-                Squares[coordinates.X, coordinates.Y] = newState;
-            }
-            else
-            {
-                if (newState != SquareStates.MissedShot)
-                {
-                    // TODO: handle it in state transition
-                    Squares[coordinates.X, coordinates.Y] = newState;
-                }
-            }
+            Squares[coordinates.X, coordinates.Y] = newState;
 
             return newState;
+        }
+
+        public bool IsAnyVirginSquare()
+        {
+            for (int i = 0; i < Size; i++)
+            {
+                for (int j = 0; j < Size; j++)
+                {
+                    if (Squares[i, j] == SquareStates.Virgin)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        private void ValidateTransition(SquareStates oldState, SquareStates newState)
+        {
+            if (squareStateTransitions.IsValidTransition(oldState, newState) == false)
+            {
+                throw new InvalidStateTransitionException($"Old state: {oldState}, new state: {newState}");
+            }
         }
 
         private void ValidateCoordinates(Coordinates coordinates)
@@ -88,7 +88,7 @@ namespace Battleship.Game.Grids
             }
         }
 
-        private void MarkShipAsSunk(Coordinates coordinates)
+        private void SetStateForWholeShip(Coordinates coordinates, SquareStates newState)
         {
             throw new NotImplementedException();
         }
