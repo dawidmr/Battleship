@@ -1,8 +1,8 @@
-﻿using Battleship.Game.Interfaces;
+﻿using Battleship.Game.Grids.Fillers;
+using Battleship.Game.Interfaces;
+using Battleship.Game.StateTransitions;
 using Battleship.Models;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Battleship.Game.Grids
 {

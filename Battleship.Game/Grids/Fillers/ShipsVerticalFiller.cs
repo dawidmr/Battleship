@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Battleship.Game
+namespace Battleship.Game.Grids.Fillers
 {
     public class ShipsVerticalFiller : IFillStrategy
     {

@@ -7,13 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Battleship.Server", "Battle
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Battleship.Client", "Battleship\Client\Battleship.Client.csproj", "{91B42D68-3EE6-4933-8B34-D85BAB5319DF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Battleship.Shared", "Battleship\Shared\Battleship.Shared.csproj", "{4E8CA0D1-A699-454D-A1BB-BF51D813CCF5}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BattleShip.Models", "BattleShip.Models\BattleShip.Models.csproj", "{B1448069-56B6-4AF9-BFCA-C685A74BDCE2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Battleship.Game", "Battleship.Game\Battleship.Game.csproj", "{EFFF6285-977D-47C5-B65E-7682B73E8314}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Battleship.Tests", "Battleship.Tests\Battleship.Tests.csproj", "{4A07321B-5C33-41D5-804D-1CDDBF67A87B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Battleship.Tests", "Battleship.Tests\Battleship.Tests.csproj", "{4A07321B-5C33-41D5-804D-1CDDBF67A87B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +27,6 @@ Global
 		{91B42D68-3EE6-4933-8B34-D85BAB5319DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{91B42D68-3EE6-4933-8B34-D85BAB5319DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{91B42D68-3EE6-4933-8B34-D85BAB5319DF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4E8CA0D1-A699-454D-A1BB-BF51D813CCF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4E8CA0D1-A699-454D-A1BB-BF51D813CCF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4E8CA0D1-A699-454D-A1BB-BF51D813CCF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4E8CA0D1-A699-454D-A1BB-BF51D813CCF5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B1448069-56B6-4AF9-BFCA-C685A74BDCE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B1448069-56B6-4AF9-BFCA-C685A74BDCE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B1448069-56B6-4AF9-BFCA-C685A74BDCE2}.Release|Any CPU.ActiveCfg = Release|Any CPU

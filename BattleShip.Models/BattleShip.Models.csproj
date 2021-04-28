@@ -6,8 +6,4 @@
     <RootNamespace>BattleShip.Models</RootNamespace>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Battleship\Shared\Battleship.Shared.csproj" />
-  </ItemGroup>
-
 </Project>

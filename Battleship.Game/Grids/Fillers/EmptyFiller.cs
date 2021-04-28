@@ -1,7 +1,7 @@
 ﻿using Battleship.Game.Interfaces;
 using Battleship.Models;
 
-namespace Battleship.Game
+namespace Battleship.Game.Grids.Fillers
 {
     public class EmptyFiller : IFillStrategy
     {

@@ -2,9 +2,9 @@
 using Battleship.Game.Interfaces;
 using Battleship.Models;
 
-namespace Battleship.Game
+namespace Battleship.Game.StateTransitions
 {
-    public class OpponentStateTransition : ISquareStateTransition
+    public class SquareStateTransition : ISquareStateTransition
     {
         public SquareStates GetNewState(SquareStates currentState)
         {
@@ -23,8 +23,9 @@ namespace Battleship.Game
 
         public bool IsValidTransition(SquareStates oldState, SquareStates newState)
         {
-            // TODO: rethink
-            return true;
+            var newValidState = GetNewState(oldState);
+
+            return newState == newValidState;
         }
     }
 }

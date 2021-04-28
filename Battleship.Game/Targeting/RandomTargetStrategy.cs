@@ -3,7 +3,7 @@ using Battleship.Game.Interfaces;
 using Battleship.Models;
 using System;
 
-namespace Battleship.Game
+namespace Battleship.Game.Targeting
 {
     public class RandomTargetStrategy : ITargetStrategy
     {
