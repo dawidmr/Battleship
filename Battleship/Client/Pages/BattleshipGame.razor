@@ -6,15 +6,16 @@
 <div>
 <button @onclick="StartGame">Play</button>
 </div>
+<label>@winner</label>
 
 <div class="container gridcontainer">
     <div class="row">
         <div class="col-sm-5 grid-column">
-            <h3>Player 1</h3>
+            <h3>@JoeName</h3>
             <Grid squares=JoeGrid Size="GridSize"/>
         </div>
         <div class="col-sm-5 grid-column">
-            <h3>Player 2</h3>
+            <h3>@KimName</h3>
             <Grid squares=KimGrid Size="GridSize"/>
         </div>
     </div>
@@ -32,9 +33,13 @@
 
     IPlayer Joe;
     IPlayer Kim;
+    string winner = string.Empty;
+
+    string JoeName => Joe == null ? "player1" : Joe.Name;
+    string KimName => Kim == null ? "player2" : Kim.Name;
 
     SquareStates[,] JoeGrid =>
-        Joe == null ? new SquareStates[10, 10] : Joe.PlayerGrid.GetSquares();
+    Joe == null ? new SquareStates[10, 10] : Joe.PlayerGrid.GetSquares();
     SquareStates[,] JoeOpGrid =>
         Joe == null ? new SquareStates[10, 10] : Joe.OpponentGrid.GetSquares();
     SquareStates[,] KimGrid =>
@@ -47,13 +52,26 @@
 
     public void StartGame()
     {
-        Engine.Play(Joe, Kim);
-        Engine.Play(Kim, Joe);
+        var player1 = Joe;
+        var player2 = Kim;
+        bool hasShips;
+
+        do
+        {
+            var tempPlayer = player1;
+            player1 = player2;
+            player2 = tempPlayer;
+
+            hasShips = Engine.Play(player1, player2);
+        }
+        while (hasShips);
+
+        winner = $"WINNER: {player1.Name}";
     }
 
     protected override async Task OnInitializedAsync()
     {
-        Joe = await Engine.CreatePlayerAsync();
-        Kim = await Engine.CreatePlayerAsync();
+        Joe = await Engine.CreatePlayerAsync("Joe");
+        Kim = await Engine.CreatePlayerAsync("Kim");
     }
 }

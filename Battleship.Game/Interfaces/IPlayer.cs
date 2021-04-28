@@ -5,8 +5,9 @@ namespace Battleship.Game.Interfaces
 {
     public interface IPlayer
     {
-        IGrid PlayerGrid { get; set; }
-        IGrid OpponentGrid { get; set; }
+        IGrid PlayerGrid { get; }
+        IGrid OpponentGrid { get; }
+        string Name { get; }
         Coordinates ChooseTarget();
         bool HasAnyShips();
         SquareStates Shot(Coordinates coordinates);

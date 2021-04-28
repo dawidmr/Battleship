@@ -19,16 +19,16 @@ namespace Battleship.Client
             configService = _configService;
         }
 
-        public IPlayer CreatePlayer()
+        public IPlayer CreatePlayer(string name)
         {
             var config = configService.GetConfiguration();
-            return new Player(gridCreator, targetStrategy, config.GridSize, config.Ships);
+            return new Player(gridCreator, targetStrategy, config.GridSize, config.Ships, name);
         }
 
-        public async Task<IPlayer> CreatePlayerAsync()
+        public async Task<IPlayer> CreatePlayerAsync(string name)
         {
             var config = await configService.GetConfigurationAsync();
-            return new Player(gridCreator, targetStrategy, config.GridSize, config.Ships);
+            return new Player(gridCreator, targetStrategy, config.GridSize, config.Ships, name);
         }
 
         public bool Play(IPlayer attacker, IPlayer victim)

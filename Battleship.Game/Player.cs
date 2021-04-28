@@ -7,15 +7,18 @@ namespace Battleship.Game
 {
     public class Player : IPlayer
     {
-        public IGrid PlayerGrid { get; set; }
-        public IGrid OpponentGrid { get; set; }
+        public IGrid PlayerGrid { get; }
+        public IGrid OpponentGrid { get; }
         private ITargetStrategy targetStrategy { get; }
 
-        public Player(IGridCreator gridCreator, ITargetStrategy _targetStrategy, int gridSize, List<Ship> ships)
+        public string Name { get; }
+
+        public Player(IGridCreator gridCreator, ITargetStrategy _targetStrategy, int gridSize, List<Ship> ships, string playerName)
         {
             targetStrategy = _targetStrategy;
             PlayerGrid = gridCreator.Create(GridType.Main, gridSize, ships);
             OpponentGrid = gridCreator.Create(GridType.Opponent, gridSize);
+            Name = playerName;
         }
 
         public Coordinates ChooseTarget()

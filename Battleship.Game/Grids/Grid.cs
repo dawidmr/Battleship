@@ -12,6 +12,8 @@ namespace Battleship.Game.Grids
         private ISquareStateTransition squareStateTransitions;
         private IFillStrategy fillStrategy;
 
+        public SquareStates[,] GetSquares() => Squares;
+
         public Grid(int size, IFillStrategy _fillStrategy, ISquareStateTransition _sqareStateTransitions)
         {
             Size = size;
@@ -24,8 +26,6 @@ namespace Battleship.Game.Grids
         {
             fillStrategy.Fill(ref Squares, Size);
         }
-
-        public SquareStates[,] GetSquares() => Squares;
 
         public SquareStates ChangeSquareState(Coordinates coordinates, SquareStates? suggestedState)
         {
