@@ -1,8 +1,8 @@
-﻿using Battleship.Models;
+﻿using Battleship.Game.Interfaces;
+using Battleship.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Battleship.Game
 {

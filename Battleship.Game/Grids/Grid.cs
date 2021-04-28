@@ -1,9 +1,11 @@
 ﻿using Battleship.Game.Exceptions;
+using Battleship.Game.Interfaces;
+using Battleship.Models;
 using Battleship.Shared;
 using System;
 using System.Collections.Generic;
 
-namespace Battleship.Models
+namespace Battleship.Game.Grids
 {
     public class Grid : IGrid
     {

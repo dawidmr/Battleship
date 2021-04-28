@@ -1,6 +1,6 @@
-﻿using Battleship.Shared;
+﻿using Battleship.Models;
 
-namespace Battleship.Models
+namespace Battleship.Game.Interfaces
 {
     public interface IGrid
     {

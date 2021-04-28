@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace Battleship.Models
+namespace Battleship.Game.Exceptions
 {
     [Serializable]
     public class UnexpectedSquareStateException : Exception

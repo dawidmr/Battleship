@@ -1,9 +1,10 @@
-﻿using Battleship.Models;
+﻿using Battleship.Game.Interfaces;
+using Battleship.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Battleship.Game
+namespace Battleship.Game.Grids
 {
     public class MainGridFactory : GridFactory
     {

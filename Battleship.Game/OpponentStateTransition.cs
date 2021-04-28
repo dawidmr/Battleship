@@ -1,7 +1,6 @@
-﻿using Battleship.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Battleship.Game.Exceptions;
+using Battleship.Game.Interfaces;
+using Battleship.Models;
 
 namespace Battleship.Game
 {

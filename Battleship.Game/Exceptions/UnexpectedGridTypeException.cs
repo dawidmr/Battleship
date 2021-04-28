@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace Battleship.Game
+namespace Battleship.Game.Exceptions
 {
     [Serializable]
     internal class UnexpectedGridTypeException : Exception

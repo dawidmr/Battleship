@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Battleship.Models.Exceptions
+namespace Battleship.Game.Exceptions
 {
     public class OutOfGridException : Exception
     {

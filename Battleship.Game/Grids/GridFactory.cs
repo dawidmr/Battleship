@@ -1,9 +1,8 @@
-﻿using Battleship.Models;
-using System;
+﻿using Battleship.Game.Interfaces;
+using Battleship.Models;
 using System.Collections.Generic;
-using System.Text;
 
-namespace Battleship.Game
+namespace Battleship.Game.Grids
 {
     public abstract class GridFactory
     {

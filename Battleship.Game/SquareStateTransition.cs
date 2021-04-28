@@ -1,6 +1,7 @@
-﻿using Battleship.Models;
+﻿using Battleship.Game.Exceptions;
+using Battleship.Game.Interfaces;
 
-namespace Battleship.Game
+namespace Battleship.Models
 {
     public class SquareStateTransition : ISquareStateTransition
     {

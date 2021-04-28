@@ -1,4 +1,6 @@
 using Battleship.Game;
+using Battleship.Game.Grids;
+using Battleship.Game.Interfaces;
 using Battleship.Models;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;

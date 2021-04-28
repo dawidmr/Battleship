@@ -1,7 +1,7 @@
 ﻿using Battleship.Models;
 using System.Collections.Generic;
 
-namespace Battleship.Game
+namespace Battleship.Game.Interfaces
 {
     public interface IGridCreator
     {
