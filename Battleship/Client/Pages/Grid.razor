@@ -31,6 +31,9 @@
     [Parameter]
     public SquareStates[,] squares { get; set; }
 
+    [Parameter]
+    public int Size { get; set; }
+
     private char GetCharFromInt(int number)
     {
         return Convert.ToChar(65 + number);
