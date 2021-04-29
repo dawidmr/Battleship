@@ -1,9 +1,10 @@
 ﻿using Battleship.Models;
+using System.Collections.Generic;
 
 namespace Battleship.Game.Interfaces
 {
     public interface IFillStrategy
     {
-        void Fill(ref SquareStates[,] squares, int size);
+        List<List<Coordinates>> Fill(ref SquareStates[,] squares, int size);
     }
 }
