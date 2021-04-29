@@ -7,10 +7,6 @@ namespace Battleship.Game.Grids
 {
     public class GridCreator : IGridCreator
     {
-        public GridCreator()
-        {
-        }
-
         public static GridFactory ChooseFactory(GridType gridType) => gridType switch
         {
             GridType.Main => new MainGridFactory(),

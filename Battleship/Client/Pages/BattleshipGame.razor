@@ -50,7 +50,7 @@
     int GridSize =>
         Joe == null ? 10 : Joe.PlayerGrid.Size;
 
-    public void StartGame()
+    public async Task StartGame()
     {
         var player1 = Joe;
         var player2 = Kim;
@@ -63,6 +63,10 @@
             player2 = tempPlayer;
 
             hasShips = Engine.Play(player1, player2);
+
+            await Task.Delay(200);
+
+            StateHasChanged();
         }
         while (hasShips);
 

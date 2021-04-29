@@ -1,6 +1,8 @@
 ﻿using Battleship.Client.Services;
 using Battleship.Game;
 using Battleship.Game.Interfaces;
+using Battleship.Models;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
 
@@ -8,36 +10,54 @@ namespace Battleship.Client
 {
     public class Engine : IEngine
     {
-        private IGridCreator gridCreator;
-        private ITargetStrategy targetStrategy;
-        private IConfigService configService;
+        private IGridCreator _gridCreator;
+        private ITargetStrategy _targetStrategy;
+        private IConfigService _configService;
+        private ILogger<Engine> _logger;
+
+        public Engine(IGridCreator gridCreator, ITargetStrategy targetStrategy, IConfigService configService, ILogger<Engine> logger)
+        {
+            _gridCreator = gridCreator;
+            _targetStrategy = targetStrategy;
+            _configService = configService;
+            _logger = logger;
+        }
         
-        public Engine(IGridCreator _gridCreator, ITargetStrategy _targetStrategy, IConfigService _configService)
-        {
-            gridCreator = _gridCreator;
-            targetStrategy = _targetStrategy;
-            configService = _configService;
-        }
-
-        public IPlayer CreatePlayer(string name)
-        {
-            var config = configService.GetConfiguration();
-            return new Player(gridCreator, targetStrategy, config.GridSize, config.Ships, name);
-        }
-
         public async Task<IPlayer> CreatePlayerAsync(string name)
         {
-            var config = await configService.GetConfigurationAsync();
-            return new Player(gridCreator, targetStrategy, config.GridSize, config.Ships, name);
+            Configuration config;
+
+            try
+            {
+                config = await _configService.GetConfigurationAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failed to create player");
+                throw;
+            }
+
+            return new Player(_gridCreator, _targetStrategy, config.GridSize, config.Ships, name);
         }
 
         public bool Play(IPlayer attacker, IPlayer victim)
         {
-            var target = attacker.ChooseTarget();
-            var newTarget1State = victim.Shot(target);
-            attacker.UpdateOpponentGrid(target, newTarget1State);
+            bool isStillInGame;
 
-            return victim.HasAnyShips();
+            try
+            {
+                var target = attacker.ChooseTarget();
+                var newTarget1State = victim.Shot(target);
+                attacker.UpdateOpponentGrid(target, newTarget1State);
+                isStillInGame = victim.HasAnyShips();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Failed to play", ex);
+                throw;
+            }
+
+            return isStillInGame;
         }
     }
 }

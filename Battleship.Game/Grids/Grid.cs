@@ -1,7 +1,9 @@
 ﻿using Battleship.Game.Exceptions;
 using Battleship.Game.Interfaces;
 using Battleship.Models;
+using Microsoft.Extensions.Logging;
 using System;
+using System.Diagnostics;
 
 namespace Battleship.Game.Grids
 {
@@ -9,22 +11,22 @@ namespace Battleship.Game.Grids
     {
         public int Size { get; }
         protected SquareStates[,] Squares;
-        private ISquareStateTransition squareStateTransitions;
-        private IFillStrategy fillStrategy;
+        private ISquareStateTransition _squareStateTransitions;
+        private IFillStrategy _fillStrategy;
 
         public SquareStates[,] GetSquares() => Squares;
 
-        public Grid(int size, IFillStrategy _fillStrategy, ISquareStateTransition _sqareStateTransitions)
+        public Grid(int size, IFillStrategy fillStrategy, ISquareStateTransition squareStateTransitions)
         {
             Size = size;
             Squares = new SquareStates[size, size];
-            fillStrategy = _fillStrategy;
-            squareStateTransitions = _sqareStateTransitions;
+            _fillStrategy = fillStrategy;
+            _squareStateTransitions = squareStateTransitions;
         }
 
         public void Fill()
         {
-            fillStrategy.Fill(ref Squares, Size);
+            _fillStrategy.Fill(ref Squares, Size);
         }
 
         public SquareStates ChangeSquareState(Coordinates coordinates, SquareStates? suggestedState)
@@ -36,11 +38,11 @@ namespace Battleship.Game.Grids
 
             if (suggestedState.HasValue)
             {
-                newState = squareStateTransitions.GetNewState(currentState, suggestedState.Value);
+                newState = _squareStateTransitions.GetNewState(currentState, suggestedState.Value);
             }
             else
             {
-                newState = squareStateTransitions.GetNewState(currentState);
+                newState = _squareStateTransitions.GetNewState(currentState);
 
                 if (newState == SquareStates.HittedShip &&
                     IsSunkShip(coordinates))
@@ -74,7 +76,7 @@ namespace Battleship.Game.Grids
 
         private void ValidateTransition(SquareStates oldState, SquareStates newState)
         {
-            if (squareStateTransitions.IsValidTransition(oldState, newState) == false)
+            if (_squareStateTransitions.IsValidTransition(oldState, newState) == false)
             {
                 throw new InvalidStateTransitionException($"Old state: {oldState}, new state: {newState}");
             }

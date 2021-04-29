@@ -43,28 +43,12 @@ namespace Battleship.Game
 
         public SquareStates Shot(Coordinates coordinates)
         {
-            try
-            {
-                return PlayerGrid.ChangeSquareState(coordinates);
-            }
-            catch (Exception ex)
-            {
-
-                throw;
-            }
+            return PlayerGrid.ChangeSquareState(coordinates);
         }
 
         public void UpdateOpponentGrid(Coordinates coordinates, SquareStates newState)
         {
-            try
-            {
-                OpponentGrid.ChangeSquareState(coordinates, newState);
-            }
-            catch (Exception ex)
-            {
-
-                throw;
-            }
+            OpponentGrid.ChangeSquareState(coordinates, newState);
         }
     }
 }

@@ -7,7 +7,7 @@ namespace Battleship.Game.Targeting
 {
     public class RandomTargetStrategy : ITargetStrategy
     {
-        private const int maxAttempts = 1000;
+        private const int maxAttempts = 100;
 
         public Coordinates ChooseTarget(IGrid opponentGrid)
         {
