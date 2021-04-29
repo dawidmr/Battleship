@@ -3,6 +3,7 @@ using Battleship.Game.Grids.Fillers;
 using Battleship.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Battleship.Tests
 {
@@ -14,7 +15,7 @@ namespace Battleship.Tests
         {
             int size = 10;
             int shipSize = 4;
-            List<Ship> ships = new List<Ship>()
+            IEnumerable<Ship> ships = new List<Ship>()
             {
                 new Ship()
                 {
@@ -23,11 +24,22 @@ namespace Battleship.Tests
                 }
             };
 
-            ShipsVerticalFiller filler = new ShipsVerticalFiller(ships);
+            var filler = new ShipsVerticalFiller(ships);
 
             var squares = new SquareStates[size, size];
 
             var result = filler.IsPlaceForVerticalShip(squares, size, 0, 6, shipSize);
+        }
+
+        [TestMethod]
+        public void IsEmptyRowTest()
+        {
+        }
+
+        private IEnumerable<Ship> PrepareShips(Dictionary<int, int> input)
+        {
+
+            return default;
         }
     }
 }

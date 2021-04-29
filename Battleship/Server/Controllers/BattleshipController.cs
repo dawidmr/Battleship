@@ -1,6 +1,6 @@
 ﻿using Battleship.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
+using System.Text.Json;
 
 namespace Battleship.Server.Controllers
 {
@@ -11,16 +11,8 @@ namespace Battleship.Server.Controllers
         [HttpGet]
         public JsonResult Get()
         {
-            var config = new Configuration()
-            {
-                GridSize = 10,
-                Ships = new List<Ship>() {
-                    new Ship() { Size = 1, Count = 4 },
-                    new Ship() { Size = 2, Count = 3 },
-                    new Ship() { Size = 3, Count = 2 },
-                    new Ship() { Size = 4, Count = 1 }
-                }
-            };
+            var jsonConfig = System.IO.File.ReadAllText("./Configuration/BattleshipConfiguration.json");
+            var config = JsonSerializer.Deserialize<Configuration>(jsonConfig);
 
             return new JsonResult(config);
         }

@@ -1,0 +1,25 @@
+{
+  "GridSize": 10,
+  "Ships": [
+    {
+      "Name": null,
+      "Size": 1,
+      "Count": 4
+    },
+    {
+      "Name": null,
+      "Size": 2,
+      "Count": 3
+    },
+    {
+      "Name": null,
+      "Size": 3,
+      "Count": 2
+    },
+    {
+      "Name": null,
+      "Size": 4,
+      "Count": 1
+    }
+  ]
+}

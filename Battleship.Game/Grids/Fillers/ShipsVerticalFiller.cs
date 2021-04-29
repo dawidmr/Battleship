@@ -8,11 +8,11 @@ namespace Battleship.Game.Grids.Fillers
 {
     public class ShipsVerticalFiller : IFillStrategy
     {
-        List<Ship> ships;
+        IEnumerable<Ship> _ships;
 
-        public ShipsVerticalFiller(List<Ship> _ships)
+        public ShipsVerticalFiller(IEnumerable<Ship> ships)
         {
-            ships = _ships;
+            _ships = ships;
         }
 
         public void Fill(ref SquareStates[,] squares, int size)
@@ -21,7 +21,7 @@ namespace Battleship.Game.Grids.Fillers
             var random = new Random();
             int maxValue = size - 1;
 
-            foreach (var ship in ships.OrderByDescending(x => x.Size))
+            foreach (var ship in _ships.OrderByDescending(x => x.Size))
             {
                 for (int i = 0; i < ship.Count; i++)
                 {
@@ -118,14 +118,6 @@ namespace Battleship.Game.Grids.Fillers
             }
 
             return true;
-        }
-
-        public void TestFill(ref SquareStates[,] squares)
-        {
-            squares[5, 2] = SquareStates.Ship;
-            squares[5, 3] = SquareStates.Ship;
-            
-            squares[7, 7] = SquareStates.Ship;
         }
     }
 }

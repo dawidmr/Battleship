@@ -6,6 +6,6 @@ namespace Battleship.Game.Grids
 {
     public abstract class GridFactory
     {
-        public abstract IGrid Create(int size, List<Ship> ships);
+        public abstract IGrid Create(int size, IEnumerable<Ship> ships);
     }
 }

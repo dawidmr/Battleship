@@ -1,21 +1,13 @@
-using Battleship.Game;
-using Battleship.Game.Grids;
-using Battleship.Game.Interfaces;
-using Battleship.Game.Targeting;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System.Linq;
 
 namespace Battleship.Server
 {
     public class Startup
     {
-        public const int GridSize = 10;
-
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -30,8 +22,6 @@ namespace Battleship.Server
 
             services.AddControllersWithViews();
             services.AddRazorPages();
-            services.AddScoped<ITargetStrategy, RandomTargetStrategy>();
-            services.AddTransient<IGridCreator, GridCreator>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

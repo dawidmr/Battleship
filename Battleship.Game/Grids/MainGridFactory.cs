@@ -2,15 +2,13 @@
 using Battleship.Game.Interfaces;
 using Battleship.Game.StateTransitions;
 using Battleship.Models;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Battleship.Game.Grids
 {
     public class MainGridFactory : GridFactory
     {
-        public override IGrid Create(int size, List<Ship> ships)
+        public override IGrid Create(int size, IEnumerable<Ship> ships)
         {
             var grid = new Grid(size, new ShipsVerticalFiller(ships), new MainStateTransition());
             grid.Fill();

@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Battleship.Models
 {
     public class Configuration
     {
         public int GridSize { get; set; }
-        public List<Ship> Ships { get; set; }
+        public IEnumerable<Ship> Ships { get; set; }
     }
 }
