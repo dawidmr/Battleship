@@ -21,6 +21,7 @@ namespace Battleship.Game.StateTransitions
         {
             { Item1: SquareStates.Virgin, Item2: SquareStates.Virgin } => SquareStates.MissedShot,
             { Item1: SquareStates.Virgin, Item2: SquareStates.HittedShip } => SquareStates.HittedShip,
+            { Item1: SquareStates.Virgin, Item2: SquareStates.SunkShip } => SquareStates.SunkShip,
             _ => throw new InvalidStateTransitionException($"Old state: {states.Item1}, new state: {states.Item2}")
         };
 

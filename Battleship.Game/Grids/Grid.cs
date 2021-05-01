@@ -42,10 +42,12 @@ namespace Battleship.Game.Grids
             if (suggestedState.HasValue)
             {
                 newState = _squareStateTransitions.GetNewState(currentState, suggestedState.Value);
+                Squares[coordinates.X, coordinates.Y] = newState;
             }
             else
             {
                 newState = _squareStateTransitions.GetNewState(currentState);
+                Squares[coordinates.X, coordinates.Y] = newState;
 
                 if (newState == SquareStates.HittedShip &&
                     IsSunkShip(coordinates))
@@ -55,8 +57,6 @@ namespace Battleship.Game.Grids
                     SetStateForWholeShip(coordinates, newState);
                 }                
             }
-
-            Squares[coordinates.X, coordinates.Y] = newState;
 
             return newState;
         }

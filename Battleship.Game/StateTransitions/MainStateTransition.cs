@@ -14,7 +14,7 @@ namespace Battleship.Game.StateTransitions
         private static SquareStates GetState(SquareStates currentState) => currentState switch
         {
             SquareStates.Virgin => SquareStates.Virgin,
-            SquareStates.HittedShip => SquareStates.HittedShip,
+            SquareStates.HittedShip => SquareStates.SunkShip,
             SquareStates.Ship => SquareStates.HittedShip,
             SquareStates.SunkShip => SquareStates.SunkShip,
             _ => throw new UnexpectedSquareStateException(nameof(currentState))

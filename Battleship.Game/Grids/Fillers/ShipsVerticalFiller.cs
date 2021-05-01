@@ -19,7 +19,7 @@ namespace Battleship.Game.Grids.Fillers
         {
             // TODO: last line not filled
             var random = new Random();
-            int maxValue = size - 1;
+            int maxValue = size;
             var ships = new List<List<Coordinates>>();
 
             foreach (var ship in _ships.OrderByDescending(x => x.Size))
@@ -31,11 +31,13 @@ namespace Battleship.Game.Grids.Fillers
                         int x = random.Next(maxValue);
                         int y = random.Next(maxValue);
 
-                        bool isPlace = IsPlaceForVerticalShip(squares, maxValue, x, y, ship.Size);
+                        bool isPlace = IsPlaceForVerticalShip(squares, maxValue - 1, x, y, ship.Size);
 
                         if (isPlace)
                         {
-                            PlaceShipVertical(ref squares, x, y, ship.Size);
+                            var placedShip = PlaceShipVertical(ref squares, x, y, ship.Size);
+                            ships.Add(placedShip);
+
                             break;
                         }
                     }
@@ -102,9 +104,9 @@ namespace Battleship.Game.Grids.Fillers
 
         public bool IsEmptyRow(SquareStates[,] squares, int size, int x, int y)
         {
-            // row above or below the grid
-            if (y < 0 || y >= size)
+            if (y < 0 || y > size)
             {
+                // row above or below the grid
                 return true;
             }
 
@@ -119,7 +121,7 @@ namespace Battleship.Game.Grids.Fillers
                 return false;
             }
 
-            if (x + 1 < size)
+            if (x + 1 <= size)
             {
                 if (squares[x+1, y] != SquareStates.Virgin)
                     return false;

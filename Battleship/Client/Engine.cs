@@ -33,11 +33,19 @@ namespace Battleship.Client
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Failed to create player");
+                _logger.LogError(ex, "Failed to get configuration");
                 throw;
             }
 
-            return new Player(_gridCreator, _targetStrategy, config.GridSize, config.Ships, name);
+            try
+            {
+                return new Player(_gridCreator, _targetStrategy, config.GridSize, config.Ships, name);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failed to create player");
+                throw;
+            }
         }
 
         public bool Play(IPlayer attacker, IPlayer victim)

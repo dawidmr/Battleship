@@ -19,7 +19,7 @@
 
             @for (int j = 0; j < 10; j++)
             {
-                <div class="col-sm @GetFormat(squares[j,i])" style="border: solid @GetBorder(squares[j,i]) black">
+                <div class="col-sm @GetFormat(squares[j,i])" style="border: solid 1px black">
                     @GetCharFromSquareState(squares[j, i])
                 </div>
             }
@@ -37,19 +37,6 @@
     private char GetCharFromInt(int number)
     {
         return Convert.ToChar(65 + number);
-    }
-
-    public string GetBorder(SquareStates state)
-    {
-        switch (state)
-        {
-            case SquareStates.HittedShip:
-            case SquareStates.Ship:
-            case SquareStates.SunkShip:
-                return "1px";
-            default:
-                return "1px";
-        }
     }
 
     private string GetFormat(SquareStates state)
@@ -76,13 +63,11 @@
         switch(state)
         {
             case SquareStates.Ship:
-                return ' ';
             case SquareStates.HittedShip:
+            case SquareStates.Virgin:
                 return ' ';
             case SquareStates.SunkShip:
                 return 'X';
-            case SquareStates.Virgin:
-                return ' ';
             case SquareStates.MissedShot:
                 return '*';
             default:
