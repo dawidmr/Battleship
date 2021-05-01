@@ -10,50 +10,52 @@
 
 <div class="container gridcontainer">
     <div class="row">
-        <div class="col-sm-5 grid-column">
-            <h3>@JoeName</h3>
-            <Grid squares=JoeGrid Size="GridSize"/>
+        <div class="col-sm-5 grid-column" style="margin-right: 100px">
+            <h3>@Player1Name's ships</h3>
+            <Grid squares=Player1Grid Size="GridSize"/>
         </div>
         <div class="col-sm-5 grid-column">
-            <h3>@KimName</h3>
-            <Grid squares=KimGrid Size="GridSize"/>
+            <h3>@Player2Name's ships</h3>
+            <Grid squares=Player2Grid Size="GridSize"/>
         </div>
     </div>
-    <div class="row">
-        <div class="col-sm-5 grid-column">
-            <Grid squares=JoeOpGrid Size="GridSize" />
+    <div class="row" style="margin-top:20px">
+        <div class="col-sm-5 grid-column"  style="margin-right: 100px">
+            <h3>@Player1Name's shots</h3>
+            <Grid squares=Player1OpGrid Size="GridSize" />
         </div>
         <div class="col-sm-5 grid-column">
-            <Grid squares=KimOpGrid Size="GridSize" />
+            <h3>@Player2Name's shots</h3>
+            <Grid squares=Player2OpGrid Size="GridSize" />
         </div>
     </div>
 </div>
 
 @code {        
 
-    IPlayer Joe;
-    IPlayer Kim;
+    IPlayer Player1;
+    IPlayer Player2;
     string winner = string.Empty;
 
-    string JoeName => Joe == null ? "player1" : Joe.Name;
-    string KimName => Kim == null ? "player2" : Kim.Name;
+    string Player1Name => Player1 == null ? "player1" : Player1.Name;
+    string Player2Name => Player2 == null ? "player2" : Player2.Name;
 
-    SquareStates[,] JoeGrid =>
-    Joe == null ? new SquareStates[10, 10] : Joe.PlayerGrid.GetSquares();
-    SquareStates[,] JoeOpGrid =>
-        Joe == null ? new SquareStates[10, 10] : Joe.OpponentGrid.GetSquares();
-    SquareStates[,] KimGrid =>
-        Joe == null ? new SquareStates[10, 10] : Kim.PlayerGrid.GetSquares();
-    SquareStates[,] KimOpGrid =>
-        Joe == null ? new SquareStates[10, 10] : Kim.OpponentGrid.GetSquares();
+    SquareStates[,] Player1Grid =>
+    Player1 == null ? new SquareStates[10, 10] : Player1.PlayerGrid.GetSquares();
+    SquareStates[,] Player1OpGrid =>
+        Player1 == null ? new SquareStates[10, 10] : Player1.OpponentGrid.GetSquares();
+    SquareStates[,] Player2Grid =>
+        Player1 == null ? new SquareStates[10, 10] : Player2.PlayerGrid.GetSquares();
+    SquareStates[,] Player2OpGrid =>
+        Player1 == null ? new SquareStates[10, 10] : Player2.OpponentGrid.GetSquares();
 
     int GridSize =>
-        Joe == null ? 10 : Joe.PlayerGrid.Size;
+        Player1 == null ? 10 : Player1.PlayerGrid.Size;
 
     public async Task StartGame()
     {
-        var player1 = Joe;
-        var player2 = Kim;
+        var player1 = Player1;
+        var player2 = Player2;
         bool hasShips;
 
         do
@@ -75,7 +77,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        Joe = await Engine.CreatePlayerAsync("Joe");
-        Kim = await Engine.CreatePlayerAsync("Kim");
+        Player1 = await Engine.CreatePlayerAsync("Joe");
+        Player2 = await Engine.CreatePlayerAsync("Kim");
     }
 }
