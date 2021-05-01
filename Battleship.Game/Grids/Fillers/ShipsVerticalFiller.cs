@@ -24,7 +24,7 @@ namespace Battleship.Game.Grids.Fillers
             int maxValue = size;
             var ships = new List<Ship>();
 
-            foreach (var ship in _ships.OrderByDescending(x => x.Size))
+            foreach (var ship in _ships?.OrderByDescending(x => x.Size))
             {
                 for (int i = 0; i < ship.Count; i++)
                 {

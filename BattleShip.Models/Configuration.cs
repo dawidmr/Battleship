@@ -4,8 +4,8 @@ namespace Battleship.Models
 {
     public class Configuration
     {
-        public int GridSize { get; }
-        public IEnumerable<ShipPrototype> Ships { get; }
-        public int SimulationSpeed { get; }
+        public int GridSize { get; set; }
+        public IEnumerable<ShipPrototype> Ships { get; set; }
+        public int SimulationSpeed { get; set; }
     }
 }
