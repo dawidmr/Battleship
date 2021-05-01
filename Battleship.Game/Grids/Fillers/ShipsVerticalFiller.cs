@@ -17,12 +17,12 @@ namespace Battleship.Game.Grids.Fillers
             _ships = ships;
         }
 
-        public List<List<Coordinates>> Fill(ref SquareStates[,] squares, int size)
+        public List<Ship> Fill(ref SquareStates[,] squares, int size)
         {
             int attemptCount = 0;
             var random = new Random();
             int maxValue = size;
-            var ships = new List<List<Coordinates>>();
+            var ships = new List<Ship>();
 
             foreach (var ship in _ships.OrderByDescending(x => x.Size))
             {
@@ -37,8 +37,8 @@ namespace Battleship.Game.Grids.Fillers
 
                         if (isPlace)
                         {
-                            var placedShip = PlaceShipVertical(ref squares, x, y, ship.Size);
-                            ships.Add(placedShip);
+                            var coordinates = PlaceShipVertical(ref squares, x, y, ship.Size);
+                            ships.Add(new Ship(coordinates));
 
                             break;
                         }

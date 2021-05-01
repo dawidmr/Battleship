@@ -4,6 +4,11 @@ namespace Battleship.Models
 {
     public class Ship
     {
-        public List<Coordinates> coordinates { get; set; }
+        public Ship(List<Coordinates> coordinates)
+        {
+            this.Parts = coordinates;
+        }
+
+        public List<Coordinates> Parts { get; }
     }
 }

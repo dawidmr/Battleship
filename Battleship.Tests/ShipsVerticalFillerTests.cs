@@ -74,7 +74,7 @@ namespace Battleship.Tests
 
         private IEnumerable<ShipPrototype> PrepareShips(Dictionary<int, int> shipsSizeCount)
         {
-            return shipsSizeCount.Select(s => new ShipPrototype() { Size = s.Key, Count = s.Value });
+            return shipsSizeCount.Select(s => new ShipPrototype(name: null, size: s.Key, count: s.Value));
         }
     }
 }

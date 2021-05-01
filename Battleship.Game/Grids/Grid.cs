@@ -1,10 +1,7 @@
 ﻿using Battleship.Game.Exceptions;
 using Battleship.Game.Interfaces;
 using Battleship.Models;
-using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 
 namespace Battleship.Game.Grids
@@ -15,7 +12,7 @@ namespace Battleship.Game.Grids
         protected SquareStates[,] Squares;
         private ISquareStateTransition _squareStateTransitions;
         private IFillStrategy _fillStrategy;
-        private List<List<Coordinates>> ships;
+        private List<Ship> ships;
 
         public SquareStates[,] GetSquares() => Squares;
 
@@ -97,19 +94,19 @@ namespace Battleship.Game.Grids
         {
             var ship = GetShip(coordinates);
 
-            ship.ForEach(c => Squares[c.X, c.Y] = newState);
+            ship.Parts.ForEach(p => Squares[p.X, p.Y] = newState);
         }
 
-        private List<Coordinates> GetShip(Coordinates coords)
+        private Ship GetShip(Coordinates coords)
         {
-            return ships.FirstOrDefault(s => s.Any(c => c.X == coords.X && c.Y == coords.Y));
+            return ships.FirstOrDefault(s => s.Parts.Any(p => p.X == coords.X && p.Y == coords.Y));
         }
 
         private bool IsSunkShip(Coordinates coordinates)
         {
             var ship = GetShip(coordinates);
 
-            return ship?.All(c =>
+            return ship?.Parts.All(c =>
                 Squares[c.X, c.Y] == SquareStates.HittedShip ||
                 Squares[c.X, c.Y] == SquareStates.SunkShip) ??
                 false;

@@ -5,6 +5,6 @@ namespace Battleship.Game.Interfaces
 {
     public interface IFillStrategy
     {
-        List<List<Coordinates>> Fill(ref SquareStates[,] squares, int size);
+        List<Ship> Fill(ref SquareStates[,] squares, int size);
     }
 }
