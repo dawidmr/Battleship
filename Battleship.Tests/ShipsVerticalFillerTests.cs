@@ -11,33 +11,32 @@ namespace Battleship.Tests
     [TestClass]
     public class ShipsVerticalFillerTests
     {
+        [DataTestMethod]
+        [DataRow(1, 1, 1)]
         [TestMethod]
-        public void FillTest()
+        public void IsPlaceForVerticalShip_possitive(int gridSize, int shipSize, int shipsCount)
         {
-            int size = 10;
-            int shipSize = 4;
-            IEnumerable<Ship> ships = new List<Ship>()
-            {
-                new Ship()
-                {
-                    Count = 1,
-                    Size = shipSize
-                }
-            };
+            var result = IsPlaceForVerticalShip(gridSize, shipSize, shipsCount);
 
-            var filler = new ShipsVerticalFiller(ships);
-
-            var squares = new SquareStates[size, size];
-
-            var result = filler.IsPlaceForVerticalShip(squares, size, 0, 6, shipSize);
+            Assert.IsTrue(result, $"There should be place for {shipsCount} ships (size:{shipSize}) on grid (size:{gridSize}).");
         }
 
+        [DataTestMethod]
+        [DataRow(2, 3, 1)]
         [TestMethod]
-        public void IsEmptyRowTest()
+        public void IsPlaceForVerticalShip_negative(int gridSize, int shipSize, int shipsCount)
         {
-            var ships = PrepareShips(new Dictionary<int, int>() { { 1, 1 } });
-            var filler = new ShipsVerticalFiller(ships);
+            var result = IsPlaceForVerticalShip(gridSize, shipSize, shipsCount);
 
+            Assert.IsFalse(result, $"There should not be place for {shipsCount} ships (size:{shipSize}) on grid (size:{gridSize}).");
+        }
+
+        private bool IsPlaceForVerticalShip(int gridSize, int shipSize, int shipsCount)
+        {
+            var ships = PrepareShips(new Dictionary<int, int>() { { shipSize, shipsCount } });
+            var filler = new ShipsVerticalFiller(ships);
+            var squares = new SquareStates[gridSize, gridSize];
+            return filler.IsPlaceForVerticalShip(squares, gridSize - 1, 0, 0, shipSize);
         }
 
         private IEnumerable<Ship> PrepareShips(Dictionary<int, int> shipsSizeCount)

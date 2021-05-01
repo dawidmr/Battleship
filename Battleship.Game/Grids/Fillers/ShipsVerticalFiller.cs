@@ -72,16 +72,16 @@ namespace Battleship.Game.Grids.Fillers
             return coordinates;
         }
 
-        public bool IsPlaceForVerticalShip(SquareStates[,] squares, int size, int x, int y, int length)
+        public bool IsPlaceForVerticalShip(SquareStates[,] squares, int maxArraySize, int x, int y, int length)
         {
-            if (y + length - 1 > size)
+            if (y + length - 1 > maxArraySize)
             {
                 return false;
             }
 
             for (int i = y; i < y + length; i++)
             {
-                if (!IsEmptyNeighbourhood(squares, size, x, i))
+                if (!IsEmptyNeighbourhood(squares, maxArraySize, x, i))
                 {
                     return false;
                 }
@@ -133,7 +133,7 @@ namespace Battleship.Game.Grids.Fillers
                 return false;
             }
 
-            if (x + 1 <= size)
+            if (x + 1 < size)
             {
                 if (squares[x+1, y] != SquareStates.Virgin)
                     return false;
