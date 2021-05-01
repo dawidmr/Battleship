@@ -14,6 +14,8 @@ namespace Battleship.Client
         private ITargetStrategy _targetStrategy;
         private IConfigService _configService;
         private ILogger<Engine> _logger;
+        private Configuration config;
+        public string ErrorMessage { get; private set; }
 
         public Engine(IGridCreator gridCreator, ITargetStrategy targetStrategy, IConfigService configService, ILogger<Engine> logger)
         {
@@ -25,16 +27,15 @@ namespace Battleship.Client
         
         public async Task<IPlayer> CreatePlayerAsync(string name)
         {
-            Configuration config;
-
             try
             {
                 config = await _configService.GetConfigurationAsync();
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Failed to get configuration");
-                throw;
+                var message = "Failed to get configuration";
+                _logger.LogError(ex, message);
+                ErrorMessage += message;
             }
 
             try
@@ -43,12 +44,15 @@ namespace Battleship.Client
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Failed to create player");
-                throw;
+                var message = "Failed to create player";
+                _logger.LogError(ex, message);
+                ErrorMessage += message;
             }
+
+            return null;
         }
 
-        public bool Play(IPlayer attacker, IPlayer victim)
+        public bool? Play(IPlayer attacker, IPlayer victim)
         {
             bool isStillInGame;
 
@@ -61,11 +65,17 @@ namespace Battleship.Client
             }
             catch (Exception ex)
             {
-                _logger.LogError("Failed to play", ex);
-                throw;
+                var message = "Failed to play";
+                _logger.LogError(ex, message);
+                ErrorMessage += message;
+
+                return null;
             }
 
             return isStillInGame;
         }
+
+        public int GetSpeed() => config.SimulationSpeed;
+        public int GetSize() => config.GridSize;
     }
 }

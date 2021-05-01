@@ -22,7 +22,7 @@ namespace Battleship.Game.StateTransitions
             { Item1: SquareStates.Virgin, Item2: SquareStates.Virgin } => SquareStates.MissedShot,
             { Item1: SquareStates.Virgin, Item2: SquareStates.HittedShip } => SquareStates.HittedShip,
             { Item1: SquareStates.Virgin, Item2: SquareStates.SunkShip } => SquareStates.SunkShip,
-            _ => throw new InvalidStateTransitionException($"Old state: {states.Item1}, new state: {states.Item2}")
+            _ => throw new InvalidStateTransitionException($"{nameof(OpponentStateTransition)} Old state: {states.Item1}, new state: {states.Item2}")
         };
 
         private static SquareStates UpdateState(SquareStates currentState) => currentState switch
@@ -31,7 +31,7 @@ namespace Battleship.Game.StateTransitions
             SquareStates.MissedShot => SquareStates.MissedShot,
             SquareStates.SunkShip => SquareStates.SunkShip,
             SquareStates.Virgin => SquareStates.MissedShot,
-            _ => throw new UnexpectedSquareStateException(nameof(currentState))
+            _ => throw new UnexpectedSquareStateException($"{nameof(OpponentStateTransition)}: {nameof(currentState)})")
         };
 
         public bool IsValidTransition(SquareStates oldState, SquareStates newState)

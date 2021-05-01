@@ -5,7 +5,11 @@ namespace Battleship.Client
 {
     public interface IEngine
     {
+        string ErrorMessage { get; }
+
         Task<IPlayer> CreatePlayerAsync(string name);
-        bool Play(IPlayer attacker, IPlayer victim);
+        int GetSize();
+        int GetSpeed();
+        bool? Play(IPlayer attacker, IPlayer victim);
     }
 }

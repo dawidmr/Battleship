@@ -1,4 +1,5 @@
-﻿using Battleship.Game.Interfaces;
+﻿using Battleship.Game.Exceptions;
+using Battleship.Game.Interfaces;
 using Battleship.Models;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,8 @@ namespace Battleship.Game.Grids.Fillers
 {
     public class ShipsVerticalFiller : IFillStrategy
     {
-        IEnumerable<Ship> _ships;
+        protected IEnumerable<Ship> _ships;
+        protected const int maxAttempts = 100;
 
         public ShipsVerticalFiller(IEnumerable<Ship> ships)
         {
@@ -17,7 +19,7 @@ namespace Battleship.Game.Grids.Fillers
 
         public List<List<Coordinates>> Fill(ref SquareStates[,] squares, int size)
         {
-            // TODO: last line not filled
+            int attemptCount = 0;
             var random = new Random();
             int maxValue = size;
             var ships = new List<List<Coordinates>>();
@@ -26,7 +28,7 @@ namespace Battleship.Game.Grids.Fillers
             {
                 for (int i = 0; i < ship.Count; i++)
                 {
-                    while (true)
+                    while (attemptCount++ < maxAttempts)
                     {
                         int x = random.Next(maxValue);
                         int y = random.Next(maxValue);
@@ -41,6 +43,16 @@ namespace Battleship.Game.Grids.Fillers
                             break;
                         }
                     }
+
+                    if (attemptCount > maxAttempts)
+                    {
+                        throw new FailedToFillGridWithShips($"{nameof(ShipsVerticalFiller)} max attempts: {maxAttempts} reached");
+                    }
+                    else
+                    {
+                        attemptCount = 0;
+                    }
+
                 }
             }
 
@@ -80,20 +92,20 @@ namespace Battleship.Game.Grids.Fillers
 
         /// <summary>
         /// * * * * *
-        /// * x x x *
-        /// * x o x *
-        /// * x x x *
+        /// * n n n *
+        /// * n o n *
+        /// * n n n *
         /// * * * * *
         /// 
-        /// o - point
-        /// x - Neighbourhood (checked)
+        /// o - point [x,y]
+        /// n - Neighbourhood (checked)
         /// * - Not checked
         /// </summary>
         public bool IsEmptyNeighbourhood(SquareStates[,] squares, int size, int x, int y)
         {
             for (int checkedY = y - 1; checkedY <= y + 1; checkedY++)
             {
-                if (!IsEmptyRow(squares, size, x, checkedY))
+                if (!AreEmpty3SquaresInRow(squares, size, x, checkedY))
                 {
                     return false;
                 }
@@ -102,7 +114,7 @@ namespace Battleship.Game.Grids.Fillers
             return true;
         }
 
-        public bool IsEmptyRow(SquareStates[,] squares, int size, int x, int y)
+        public bool AreEmpty3SquaresInRow(SquareStates[,] squares, int size, int x, int y)
         {
             if (y < 0 || y > size)
             {

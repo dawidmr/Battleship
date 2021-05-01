@@ -17,7 +17,7 @@ namespace Battleship.Game.Targeting
 
             if (!opponentGrid.IsAnyVirginSquare())
             {
-                throw new FailedToChooseTargetException("No available coordinates");
+                throw new FailedToChooseTargetException($"{nameof(RandomTargetStrategy)}: No available coordinates");
             }
 
             int x, y, attempts = 0;
@@ -26,7 +26,7 @@ namespace Battleship.Game.Targeting
             {
                 if (attempts++ > maxAttempts)
                 {
-                    throw new FailedToChooseTargetException($"Max attempts: {maxAttempts} reached.");
+                    throw new FailedToChooseTargetException($"{nameof(RandomTargetStrategy)}: Max attempts: {maxAttempts} reached.");
                 }
 
                 x = random.Next(maxValue);

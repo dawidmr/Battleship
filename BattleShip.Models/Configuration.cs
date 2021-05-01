@@ -6,5 +6,6 @@ namespace Battleship.Models
     {
         public int GridSize { get; set; }
         public IEnumerable<Ship> Ships { get; set; }
+        public int SimulationSpeed { get; set; }
     }
 }

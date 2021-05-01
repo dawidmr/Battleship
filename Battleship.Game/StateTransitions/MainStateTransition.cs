@@ -17,7 +17,7 @@ namespace Battleship.Game.StateTransitions
             SquareStates.HittedShip => SquareStates.SunkShip,
             SquareStates.Ship => SquareStates.HittedShip,
             SquareStates.SunkShip => SquareStates.SunkShip,
-            _ => throw new UnexpectedSquareStateException(nameof(currentState))
+            _ => throw new UnexpectedSquareStateException($"{nameof(MainStateTransition)}: {nameof(currentState)})")
         };
 
         public bool IsValidTransition(SquareStates oldState, SquareStates newState)

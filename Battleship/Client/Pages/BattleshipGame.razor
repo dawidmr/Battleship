@@ -1,26 +1,28 @@
 ﻿@page "/battleshipgame"
 @inject IEngine Engine
 
-<h3>BattleshipGame</h3>
-
-<div>
-<button @onclick="StartGame">Play</button>
+<div style="text-align:center">
+    <h3>Battleship Game</h3>
+    <br /><br />
+    <button disabled="@playButtonDisabled" @onclick="StartGame">Play</button>
+    <br /><br />
+    <h3 style="color:lightgreen">@winner</h3>
+    <h2 style="color:red">@errorMessage</h2>
 </div>
-<label>@winner</label>
 
 <div class="container gridcontainer">
     <div class="row">
         <div class="col-sm-5 grid-column" style="margin-right: 100px">
             <h3>@Player1Name's ships</h3>
-            <Grid squares=Player1Grid Size="GridSize"/>
+            <Grid squares=Player1Grid Size="GridSize" />
         </div>
         <div class="col-sm-5 grid-column">
             <h3>@Player2Name's ships</h3>
-            <Grid squares=Player2Grid Size="GridSize"/>
+            <Grid squares=Player2Grid Size="GridSize" />
         </div>
     </div>
     <div class="row" style="margin-top:20px">
-        <div class="col-sm-5 grid-column"  style="margin-right: 100px">
+        <div class="col-sm-5 grid-column" style="margin-right: 100px">
             <h3>@Player1Name's shots</h3>
             <Grid squares=Player1OpGrid Size="GridSize" />
         </div>
@@ -29,34 +31,59 @@
             <Grid squares=Player2OpGrid Size="GridSize" />
         </div>
     </div>
+    <div class="row" style="margin-top:100px">
+        <table>
+            <tr>
+                <td class="col-sm @GetFormat(SquareStates.Ship)" style="width: 50px"></td>
+                <td>Ship</td>
+            </tr>
+            <tr>
+                <td class="col-sm @GetFormat(SquareStates.HittedShip)" style="width: 50px"></td>
+                <td>Hitted Ship</td>
+            </tr>
+            <tr>
+                <td class="col-sm @GetFormat(SquareStates.SunkShip)" style="width: 50px"></td>
+                <td>Sunk Ship</td>
+            </tr>
+            <tr>
+                <td class="col-sm @GetFormat(SquareStates.MissedShot)" style="width: 50px"></td>
+                <td>Missed Shot</td>
+            </tr>
+        </table>
+    </div>
 </div>
 
-@code {        
+@code {
 
     IPlayer Player1;
     IPlayer Player2;
+    int speed = 1;
     string winner = string.Empty;
+    string errorMessage = string.Empty;
+    bool playButtonDisabled = false;
 
     string Player1Name => Player1 == null ? "player1" : Player1.Name;
     string Player2Name => Player2 == null ? "player2" : Player2.Name;
 
     SquareStates[,] Player1Grid =>
-    Player1 == null ? new SquareStates[10, 10] : Player1.PlayerGrid.GetSquares();
+        Player1 == null ? new SquareStates[10, 10] : Player1.PlayerGrid.GetSquares();
     SquareStates[,] Player1OpGrid =>
         Player1 == null ? new SquareStates[10, 10] : Player1.OpponentGrid.GetSquares();
     SquareStates[,] Player2Grid =>
-        Player1 == null ? new SquareStates[10, 10] : Player2.PlayerGrid.GetSquares();
+        Player2 == null ? new SquareStates[10, 10] : Player2.PlayerGrid.GetSquares();
     SquareStates[,] Player2OpGrid =>
-        Player1 == null ? new SquareStates[10, 10] : Player2.OpponentGrid.GetSquares();
+        Player2 == null ? new SquareStates[10, 10] : Player2.OpponentGrid.GetSquares();
 
     int GridSize =>
-        Player1 == null ? 10 : Player1.PlayerGrid.Size;
+        Player1 == null ? 10 : Engine.GetSize();
 
     public async Task StartGame()
     {
+        playButtonDisabled = true;
+
         var player1 = Player1;
         var player2 = Player2;
-        bool hasShips;
+        bool hasShips = true;
 
         do
         {
@@ -64,9 +91,18 @@
             player1 = player2;
             player2 = tempPlayer;
 
-            hasShips = Engine.Play(player1, player2);
+            var result = Engine.Play(player1, player2);
 
-            await Task.Delay(50);
+            if (result.HasValue)
+            {
+                hasShips = result.Value;
+            }
+            else
+            {
+                HandleError();
+            }
+
+            await Task.Delay(11 - speed);
 
             StateHasChanged();
         }
@@ -79,5 +115,23 @@
     {
         Player1 = await Engine.CreatePlayerAsync("Joe");
         Player2 = await Engine.CreatePlayerAsync("Kim");
+
+        if (Player1 == null || Player2 == null)
+        {
+            HandleError();
+        }
+
+        speed = Engine.GetSpeed();
+    }
+
+    private void HandleError()
+    {
+        errorMessage = Engine.ErrorMessage;
+        playButtonDisabled = true;
+    }
+
+    private string GetFormat(SquareStates state)
+    {
+        return ViewFormatting.GetFormat(state);
     }
 }
