@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Battleship.Models
 {
     public class Ship
     {
-        public string Name { get; set; }
-        public int Size { get; set; }
-        public int Count { get; set; }
+        public List<Coordinates> coordinates { get; set; }
     }
 }

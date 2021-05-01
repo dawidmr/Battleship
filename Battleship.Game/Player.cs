@@ -13,7 +13,7 @@ namespace Battleship.Game
 
         public string Name { get; }
 
-        public Player(IGridCreator gridCreator, ITargetStrategy _targetStrategy, int gridSize, IEnumerable<Ship> ships, string playerName)
+        public Player(IGridCreator gridCreator, ITargetStrategy _targetStrategy, int gridSize, IEnumerable<ShipPrototype> ships, string playerName)
         {
             targetStrategy = _targetStrategy;
             PlayerGrid = gridCreator.Create(GridType.Main, gridSize, ships);

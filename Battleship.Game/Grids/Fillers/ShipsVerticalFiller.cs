@@ -9,10 +9,10 @@ namespace Battleship.Game.Grids.Fillers
 {
     public class ShipsVerticalFiller : IFillStrategy
     {
-        protected IEnumerable<Ship> _ships;
+        protected IEnumerable<ShipPrototype> _ships;
         protected const int maxAttempts = 100;
 
-        public ShipsVerticalFiller(IEnumerable<Ship> ships)
+        public ShipsVerticalFiller(IEnumerable<ShipPrototype> ships)
         {
             _ships = ships;
         }
@@ -46,7 +46,7 @@ namespace Battleship.Game.Grids.Fillers
 
                     if (attemptCount > maxAttempts)
                     {
-                        throw new FailedToFillGridWithShips($"{nameof(ShipsVerticalFiller)} max attempts: {maxAttempts} reached");
+                        throw new FailedToFillGridWithShipsException($"{nameof(ShipsVerticalFiller)} max attempts: {maxAttempts} reached");
                     }
                     else
                     {

@@ -4,21 +4,21 @@ using System.Runtime.Serialization;
 namespace Battleship.Game.Exceptions
 {
     [Serializable]
-    internal class FailedToFillGridWithShips : Exception
+    public class FailedToFillGridWithShipsException : Exception
     {
-        public FailedToFillGridWithShips()
+        public FailedToFillGridWithShipsException()
         {
         }
 
-        public FailedToFillGridWithShips(string message) : base(message)
+        public FailedToFillGridWithShipsException(string message) : base(message)
         {
         }
 
-        public FailedToFillGridWithShips(string message, Exception innerException) : base(message, innerException)
+        public FailedToFillGridWithShipsException(string message, Exception innerException) : base(message, innerException)
         {
         }
 
-        protected FailedToFillGridWithShips(SerializationInfo info, StreamingContext context) : base(info, context)
+        protected FailedToFillGridWithShipsException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
     }

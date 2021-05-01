@@ -14,7 +14,7 @@ namespace Battleship.Game.Grids
             _ => throw new UnexpectedGridTypeException(nameof(gridType))
         };
 
-        public IGrid Create(GridType gridType, int gridSize, IEnumerable<Ship> ships)
+        public IGrid Create(GridType gridType, int gridSize, IEnumerable<ShipPrototype> ships)
         {
             var factory = ChooseFactory(gridType);
             return factory.Create(gridSize, ships);
