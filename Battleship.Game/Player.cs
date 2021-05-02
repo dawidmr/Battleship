@@ -1,6 +1,5 @@
 ﻿using Battleship.Game.Interfaces;
 using Battleship.Models;
-using System;
 using System.Collections.Generic;
 
 namespace Battleship.Game
