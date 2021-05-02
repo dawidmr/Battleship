@@ -1,17 +1,11 @@
 using Battleship.Client.Services;
-using Battleship.Game;
 using Battleship.Game.Grids;
 using Battleship.Game.Interfaces;
 using Battleship.Game.Targeting;
-using Battleship.Models;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Battleship.Client

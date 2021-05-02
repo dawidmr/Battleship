@@ -32,24 +32,7 @@
         </div>
     </div>
     <div class="row" style="margin-top:100px">
-        <table>
-            <tr>
-                <td class="col-sm @GetFormat(SquareStates.Ship)" style="width: 50px"></td>
-                <td>Ship</td>
-            </tr>
-            <tr>
-                <td class="col-sm @GetFormat(SquareStates.HittedShip)" style="width: 50px"></td>
-                <td>Hitted Ship</td>
-            </tr>
-            <tr>
-                <td class="col-sm @GetFormat(SquareStates.SunkShip)" style="width: 50px"></td>
-                <td>Sunk Ship</td>
-            </tr>
-            <tr>
-                <td class="col-sm @GetFormat(SquareStates.MissedShot)" style="width: 50px"></td>
-                <td>Missed Shot</td>
-            </tr>
-        </table>
+        <GridExplanation/>
     </div>
 </div>
 
@@ -128,10 +111,5 @@
     {
         errorMessage = Engine.ErrorMessage;
         playButtonDisabled = true;
-    }
-
-    private string GetFormat(SquareStates state)
-    {
-        return ViewFormatting.GetFormat(state);
     }
 }

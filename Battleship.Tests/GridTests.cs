@@ -1,5 +1,8 @@
-﻿using Battleship.Models;
+﻿using Battleship.Game.Grids;
+using Battleship.Game.Interfaces;
+using Battleship.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 
 namespace Battleship.Tests
 {
@@ -24,6 +27,60 @@ namespace Battleship.Tests
             var result = grid.IsAnyVirginSquare();
 
             Assert.IsTrue(result, $"There should be at least one square with state {SquareStates.Virgin}.");
+        }
+
+        [TestMethod]
+        public void ChangeSquareState_Test()
+        {
+            int size = 3;
+            int x = 1;
+            int y = 1;
+            SquareStates shipState = SquareStates.Ship;
+
+            var grid = PrepareEmptyGridWithTransition(size, shipState);
+
+            var returnedState = grid.ChangeSquareState(new Coordinates(x, y), null);
+
+            ValidateChangeSquareState(shipState, returnedState, x, y, grid);
+        }
+
+        [TestMethod]
+        public void ChangeSquareState_SuggestedStateTest()
+        {
+            int size = 3;
+            int x = 1;
+            int y = 1;
+            var shipState = SquareStates.Ship;
+
+            var grid = PrepareEmptyGridWithTransition(size, shipState);
+
+            var returnedState = grid.ChangeSquareState(new Coordinates(x, y), shipState);
+
+            ValidateChangeSquareState(shipState, returnedState, x, y, grid);
+        }
+
+        private IGrid PrepareEmptyGridWithTransition(int size, SquareStates stateToReturn)
+        {
+            var returnShipTransitionMoq = new Mock<ISquareStateTransition>();
+
+            returnShipTransitionMoq
+                .Setup(stm => stm.GetNewState(It.IsAny<SquareStates>()))
+                .Returns(stateToReturn);
+
+            returnShipTransitionMoq
+                .Setup(stm => stm.GetNewState(It.IsAny<SquareStates>(), It.IsAny<SquareStates>()))
+                .Returns(stateToReturn);
+
+            return new Grid(size, null, returnShipTransitionMoq.Object);
+        }
+
+        private void ValidateChangeSquareState(SquareStates expectedState, SquareStates returnedState, int x, int y, IGrid grid)
+        {
+            Assert.AreEqual(expectedState, returnedState);
+
+            var squareState = grid.GetSquares()[x, y];
+
+            Assert.AreEqual(expectedState, squareState);
         }
 
         private TestGrid PrepareTestGridWithShip(int size)
