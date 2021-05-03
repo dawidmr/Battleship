@@ -37,4 +37,6 @@ Battleship Game Simulator
 			o	Fillers – different fillers are used for different grids. Empty filler doesn’t do anything as opponent’s grid is initially empty.
 			
 		•	StateTransitions – set of rules how states can be changed. Defines flow of states of square depending on game rules. 
-		•	RandomTargetStrategy– very simple algorithm, mostly random.
+		•	RandomTargetStrategy – very simple algorithm, mostly random.
+	e) Tests
+		- Unit tests of most fragile code.
