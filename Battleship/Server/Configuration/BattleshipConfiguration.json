@@ -1,6 +1,6 @@
 {
   "GridSize": 10,
-  "SimulationSpeed": 10,
+  "SimulationSpeed": 5,
   "Ships": [
     {
       "Name": null,
