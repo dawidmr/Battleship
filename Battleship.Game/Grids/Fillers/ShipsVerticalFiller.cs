@@ -133,7 +133,7 @@ namespace Battleship.Game.Grids.Fillers
                 return false;
             }
 
-            if (x + 1 < size)
+            if (x + 1 <= size)
             {
                 if (squares[x+1, y] != SquareStates.Virgin)
                     return false;

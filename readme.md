@@ -40,3 +40,7 @@ Battleship Game Simulator
 		•	RandomTargetStrategy – very simple algorithm, mostly random.
 	e) Tests
 		- Unit tests of most fragile code.
+
+4. Error handling
+	- All exceptions are saved to borwser log.
+	- Error messages are presented to user.
